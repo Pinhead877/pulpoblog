@@ -27,14 +27,14 @@ namespace ButiqueShops.Models
         public string Website { get; set; }
         public string Phone { get; set; }
         public Nullable<int> AddressId { get; set; }
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public string LogoPath { get; set; }
         public System.DateTime DateAdded { get; set; }
     
         public virtual Addresses Addresses { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Items> Items { get; set; }
-        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLikeShop> UserLikeShop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

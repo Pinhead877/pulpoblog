@@ -18,7 +18,6 @@ namespace ButiqueShops.Models
         public Addresses()
         {
             this.Shops = new HashSet<Shops>();
-            this.Users = new HashSet<Users>();
         }
     
         public int Id { get; set; }
@@ -30,7 +29,5 @@ namespace ButiqueShops.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Shops> Shops { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
     }
 }

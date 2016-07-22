@@ -173,13 +173,23 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\UserTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Addresses.cs">
+      <DependentUpon>ButiqueModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>ButiqueModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>ButiqueModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>ButiqueModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ButiqueModels.Context.cs">
@@ -214,12 +224,6 @@
     <Compile Include="Models\UserLikeShop.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Users.cs">
-      <DependentUpon>ButiqueModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserTypes.cs">
-      <DependentUpon>ButiqueModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\UserVisitedShop.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
@@ -237,15 +241,38 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\grayscale.css" />
     <Content Include="Content\grayscale.min.css" />
+    <Content Include="Content\index\index.css">
+      <DependentUpon>index.less</DependentUpon>
+    </Content>
+    <Content Include="Content\index\index.min.css">
+      <DependentUpon>index.css</DependentUpon>
+    </Content>
+    <Content Include="Content\owl-crsl\owl.carousel.css" />
+    <Content Include="Content\owl-crsl\owl.theme.css" />
+    <Content Include="Content\owl-crsl\owl.transitions.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Index\crsl\1.png" />
+    <Content Include="Images\Index\crsl\2.png" />
+    <Content Include="Images\Index\crsl\3.png" />
+    <Content Include="Images\Index\crsl\4.png" />
+    <Content Include="Images\Index\crsl\demo\1.jpg" />
+    <Content Include="Images\Index\crsl\demo\2.jpg" />
+    <Content Include="Images\Index\crsl\demo\3.jpg" />
+    <Content Include="Images\Index\crsl\demo\4.jpg" />
+    <Content Include="Images\Index\crsl\demo\5.jpg" />
+    <Content Include="Images\Index\crsl\demo\6.jpg" />
+    <Content Include="Images\Index\crsl\demo\7.jpg" />
+    <Content Include="Images\Index\crsl\demo\8.jpg" />
     <Content Include="Images\Index\downloads-bg.jpg" />
     <Content Include="Images\Index\intro-bg.JPG" />
     <Content Include="Images\Index\LOGOpulpo.png" />
     <Content Include="Images\Index\MainIMG.JPG" />
     <Content Include="Images\Layout\logo.png" />
+    <Content Include="Images\owl-crsl\AjaxLoader.gif" />
+    <Content Include="Images\owl-crsl\grabbing.png" />
     <Content Include="Models\ButiqueModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ButiqueModels.edmx</DependentUpon>
@@ -256,8 +283,6 @@
       <DependentUpon>ButiqueModels.edmx</DependentUpon>
       <LastGenOutput>ButiqueModels.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\ButiqueModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ButiqueModels.Designer.cs</LastGenOutput>
@@ -309,7 +334,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\index\index.less" />
     <Content Include="Scripts\bootstrap\css\bootstrap.css" />
     <Content Include="Scripts\bootstrap\css\bootstrap.min.css" />
     <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -317,16 +342,12 @@
     <Content Include="Scripts\bootstrap\js\bootstrap.min.js" />
     <Content Include="Scripts\grayscale.js" />
     <Content Include="Scripts\grayscale.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\index\index.js" />
+    <Content Include="Scripts\jquery\jquery.easing.min.js" />
     <Content Include="Scripts\jquery\jquery.js" />
     <Content Include="Scripts\jquery\jquery.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\owl-crsl\owl.carousel.js" />
+    <Content Include="Scripts\owl-crsl\owl.carousel.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -364,21 +385,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\UserTypes\Create.cshtml" />
-    <Content Include="Views\UserTypes\Delete.cshtml" />
-    <Content Include="Views\UserTypes\Details.cshtml" />
-    <Content Include="Views\UserTypes\Edit.cshtml" />
-    <Content Include="Views\UserTypes\Index.cshtml" />
     <Content Include="Views\ItemTypes\Create.cshtml" />
     <Content Include="Views\ItemTypes\Delete.cshtml" />
     <Content Include="Views\ItemTypes\Details.cshtml" />
     <Content Include="Views\ItemTypes\Edit.cshtml" />
     <Content Include="Views\ItemTypes\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -389,7 +400,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

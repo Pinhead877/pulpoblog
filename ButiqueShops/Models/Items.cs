@@ -32,10 +32,10 @@ namespace ButiqueShops.Models
         public System.DateTime DateAdded { get; set; }
     
         public virtual ItemTypes ItemTypes { get; set; }
-        public virtual Shops Shops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLikedItem> UserLikedItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVistedItem> UserVistedItem { get; set; }
+        public virtual Shops Shops { get; set; }
     }
 }

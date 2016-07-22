@@ -15,11 +15,11 @@ namespace ButiqueShops.Models
     public partial class UserVisitedShop
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int ShopId { get; set; }
         public System.DateTime Date { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Shops Shops { get; set; }
-        public virtual Users Users { get; set; }
     }
 }

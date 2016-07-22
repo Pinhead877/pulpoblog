@@ -54,20 +54,19 @@ a:focus {
   margin-bottom: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   text-transform: uppercase;
-  /*font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;*/
   font-family: 'Varela Round', sans-serif;
   background-color: black;
 }
-.navbar-custom .logo-img {
-  position: absolute;
-  width: 245px;
-}
 .navbar-custom .bottom-nav {
-  -webkit-transition: background 1s ease-out, padding 0.5s ease-in;
-  -moz-transition: background 1s ease-out, padding 0.5s ease-in;
-  -o-transition: background 1s ease-out, padding 0.5s ease-in;
-  transition: background 1s ease-out, padding 0.5s ease-in;
+  /*-webkit-transition: background 1s ease-out,padding .5s ease-in;
+        -moz-transition: background 1s ease-out,padding .5s ease-in;
+        -o-transition: background 1s ease-out,padding .5s ease-in;
+        transition: background 1s ease-out,padding .5s ease-in;*/
   background-color: white;
+}
+.navbar-custom .bottom-nav .logo-img {
+  position: absolute;
+  width: 195px;
 }
 .navbar-custom .bottom-nav .nav li a {
   -webkit-transition: background 0.3s ease-in-out;
@@ -149,51 +148,15 @@ a:focus {
     border-bottom: none;
     letter-spacing: 1px;
     background: transparent;
-    -webkit-transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
-    -moz-transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
-    -o-transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
-    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+    /*-webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -o-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;*/
   }
   .navbar-custom.top-nav-collapse {
     background: black;
     padding: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  }
-}
-.intro {
-  display: table;
-  width: 100%;
-  height: auto;
-  padding: 100px 0;
-  text-align: center;
-  color: white;
-  background: url(../Images/Index/intro-bg.JPG) no-repeat bottom center scroll;
-  background-color: black;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-.intro .intro-body {
-  display: table-cell;
-  vertical-align: middle;
-}
-.intro .intro-body .brand-heading {
-  font-size: 40px;
-}
-.intro .intro-body .intro-text {
-  font-size: 18px;
-}
-@media (min-width: 768px) {
-  .intro {
-    height: 100%;
-    padding: 0;
-  }
-  .intro .intro-body .brand-heading {
-    font-size: 100px;
-  }
-  .intro .intro-body .intro-text {
-    font-size: 26px;
   }
 }
 .btn-circle {

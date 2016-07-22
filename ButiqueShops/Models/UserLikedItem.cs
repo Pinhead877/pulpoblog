@@ -15,12 +15,12 @@ namespace ButiqueShops.Models
     public partial class UserLikedItem
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int ItemId { get; set; }
         public System.DateTime LikedOn { get; set; }
         public bool IsActive { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Items Items { get; set; }
-        public virtual Users Users { get; set; }
     }
 }

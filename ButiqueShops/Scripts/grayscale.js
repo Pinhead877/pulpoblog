@@ -19,8 +19,8 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-$(window).scroll(collapseNavbar);
-$(document).ready(collapseNavbar);
+//$(window).scroll(collapseNavbar);
+//$(document).ready(collapseNavbar);
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {

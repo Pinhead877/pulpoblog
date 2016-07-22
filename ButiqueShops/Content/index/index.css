@@ -1,0 +1,44 @@
+﻿body .owl-theme .item {
+  margin: 3px;
+}
+body .owl-theme .item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+body .intro {
+  display: table;
+  width: 100%;
+  height: auto;
+  padding: 100px 0;
+  text-align: center;
+  color: white;
+  background: url(../../Images/Index/intro-bg.JPG) no-repeat bottom center scroll;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+body .intro .intro-body {
+  display: table-cell;
+  vertical-align: middle;
+}
+body .intro .intro-body .brand-heading {
+  font-size: 40px;
+}
+body .intro .intro-body .intro-text {
+  font-size: 18px;
+}
+@media (min-width: 768px) {
+  body .intro {
+    height: 100%;
+    padding: 0;
+  }
+  body .intro .intro-body .brand-heading {
+    font-size: 100px;
+  }
+  body .intro .intro-body .intro-text {
+    font-size: 26px;
+  }
+}
