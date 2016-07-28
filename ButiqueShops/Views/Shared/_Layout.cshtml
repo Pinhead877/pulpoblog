@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -8,9 +9,9 @@
     <meta name="author" content="">
     <title>PulPo - @ViewBag.title</title>
 
-    @Scripts.Render("~/bundles/layout");
+    @Scripts.Render("~/bundles/layout")
 
-    @RenderSection("Scripts", required: false);
+    @RenderSection("Scripts", required: false)
 
     <link href="~/Scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -33,33 +34,13 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
+                <a class="navbar-brand page-scroll" href="/Home/Index">
                     <i class="fa fa-arrow-circle-right"></i> <span class="light">Connect</span> & get inspired
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="/Account/register" data-toggle="tooltip" data-placement="bottom" title="הרשמה"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll"href="/Account/login" data-toggle="tooltip" data-placement="bottom" title="התחברות"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a>|</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" data-toggle="tooltip" data-placement="bottom" title="חיפוש"><i class="fa fa-search" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" data-toggle="tooltip" data-placement="bottom" title="עזרה"><i class="fa fa-question" aria-hidden="true"></i></a>
-                    </li>
-                </ul>
+                    @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-collapse -->
         </div>

@@ -1,22 +1,41 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
     {
-    @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <ul class="nav navbar-nav">
+            @Html.AntiForgeryToken()
+            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+            <li class="hidden">
+                <a href="#page-top"></a>
+            </li>
+            <li>
+                <a class="page-scroll" href="/Account/profile" data-toggle="tooltip" data-placement="bottom" title="פרופיל">@User.Identity.Name שלום <i class="fa fa-user" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a class="page-scroll" href="javascript:document.getElementById('logoutForm').submit()" data-toggle="tooltip" data-placement="bottom" title="התנתקות"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a>|</a>
+            </li>
+            @Html.Partial("_SearchHelpNav")
+        </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav">
+
+        <li>
+            <a class="page-scroll" href="/Account/register" data-toggle="tooltip" data-placement="bottom" title="הרשמה"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+        </li>
+        <li>
+            <a class="page-scroll" href="/Account/login" data-toggle="tooltip" data-placement="bottom" title="התחברות"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+        </li>
+        <li>
+            <a>|</a>
+        </li>
+        @Html.Partial("_SearchHelpNav")
     </ul>
+
 }

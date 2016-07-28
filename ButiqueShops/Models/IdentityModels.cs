@@ -11,6 +11,7 @@ namespace ButiqueShops.Models
     public class ApplicationUser : IdentityUser
     {
         public DateTime Birthday { get; set; }
+        public string Gender { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
