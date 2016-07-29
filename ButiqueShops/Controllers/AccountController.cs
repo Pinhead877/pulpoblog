@@ -418,6 +418,12 @@ namespace ButiqueShops.Controllers
             return View();
         }
 
+
+        public ActionResult UserProfile()
+        {
+            return View("Profile");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

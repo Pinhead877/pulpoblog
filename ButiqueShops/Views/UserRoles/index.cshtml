@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ButiqueShops.ViewModels.UserViewModel>
+
+@{
+    ViewBag.Title = "UsersRolesList";
+}
+
+<div class="container first">
+    <h2>Users Roles List</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var user in Model)
+        {
+            foreach (var role in user.Roles)
+            {
+
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => role.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = user.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = user.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = user.Id })
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+</div>

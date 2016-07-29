@@ -50,6 +50,14 @@ a:focus {
 .light {
   font-weight: 400;
 }
+.first {
+  display: table;
+  height: auto;
+  padding: 125px 0 100px 0;
+  text-align: center;
+  color: white;
+  background-color: black;
+}
 .navbar-custom {
   margin-bottom: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);

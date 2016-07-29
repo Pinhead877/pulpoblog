@@ -20,7 +20,7 @@ namespace ButiqueShops.Models
         public System.DateTime LikedOn { get; set; }
         public bool IsActive { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Items Items { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

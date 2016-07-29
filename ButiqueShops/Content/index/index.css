@@ -13,8 +13,8 @@ body .intro {
   padding: 100px 0;
   text-align: center;
   color: white;
-  background: url(../../Images/Index/intro-bg.JPG) no-repeat bottom center scroll;
   background-color: black;
+  background: url(../../Images/Index/intro-bg.JPG) no-repeat bottom center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

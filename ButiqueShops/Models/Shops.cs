@@ -32,12 +32,12 @@ namespace ButiqueShops.Models
         public System.DateTime DateAdded { get; set; }
     
         public virtual Addresses Addresses { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Items> Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLikeShop> UserLikeShop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVisitedShop> UserVisitedShop { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }
