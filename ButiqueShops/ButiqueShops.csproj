@@ -173,7 +173,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\ShopsController.cs" />
     <Compile Include="Controllers\UserRolesController.cs" />
     <Compile Include="Extensions\AuthorizeRoles.cs" />
     <Compile Include="Extensions\Mapper.cs" />
@@ -181,7 +183,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,9 +190,6 @@
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\Addresses.cs">
-      <DependentUpon>ButiqueModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
@@ -414,6 +412,18 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\UserRoles\index.cshtml" />
     <Content Include="Views\UserRoles\Create.cshtml" />
+    <Content Include="Views\Shop\ShopItems.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Items\Create.cshtml" />
+    <Content Include="Views\Items\Delete.cshtml" />
+    <Content Include="Views\Items\Details.cshtml" />
+    <Content Include="Views\Items\Edit.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
+    <Content Include="Views\Shops\Create.cshtml" />
+    <Content Include="Views\Shops\Delete.cshtml" />
+    <Content Include="Views\Shops\Details.cshtml" />
+    <Content Include="Views\Shops\Edit.cshtml" />
+    <Content Include="Views\Shops\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

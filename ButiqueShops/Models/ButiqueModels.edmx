@@ -5,22 +5,11 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ButiqueShopsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Addresses">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Street" Type="nvarchar" MaxLength="50" />
-          <Property Name="HouseNo" Type="int" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="Country" Type="nvarchar" MaxLength="50" />
-          <Property Name="PostalCode" Type="nchar" MaxLength="10" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserClaims">
@@ -48,7 +37,7 @@
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -59,7 +48,7 @@
           <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="MemberSince" Type="date" Nullable="false" />
           <Property Name="Birthday" Type="date" Nullable="false" />
-          <Property Name="AddressId" Type="int" />
+          <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
@@ -100,10 +89,10 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Website" Type="nvarchar" MaxLength="100" />
           <Property Name="Phone" Type="nvarchar" MaxLength="15" />
-          <Property Name="AddressId" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
           <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LogoPath" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="DateAdded" Type="date" Nullable="false" />
+          <Property Name="DateAdded" Type="date" />
         </EntityType>
         <EntityType Name="UserLikedItem">
           <Key>
@@ -143,18 +132,6 @@
           <Property Name="ItemId" Type="int" Nullable="false" />
           <Property Name="VisitedOn" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="AddressCons">
-          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
-          <End Role="Shops" Type="Self.Shops" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Addresses">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Shops">
-              <PropertyRef Name="AddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -344,7 +321,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ButiqueShopsModelStoreContainer">
-          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -357,10 +333,6 @@
           <EntitySet Name="UserLikeShop" EntityType="Self.UserLikeShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserVisitedShop" EntityType="Self.UserVisitedShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserVistedItem" EntityType="Self.UserVistedItem" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="AddressCons" Association="Self.AddressCons">
-            <End Role="Addresses" EntitySet="Addresses" />
-            <End Role="Shops" EntitySet="Shops" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -427,20 +399,14 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ButiqueShopsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ButiqueShopsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Addresses" EntityType="ButiqueShopsModel.Addresses" />
           <EntitySet Name="AspNetUserClaims" EntityType="ButiqueShopsModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="ButiqueShopsModel.AspNetUserLogins" />
           <EntitySet Name="Items" EntityType="ButiqueShopsModel.Items" />
           <EntitySet Name="ItemTypes" EntityType="ButiqueShopsModel.ItemTypes" />
-          <EntitySet Name="Shops" EntityType="ButiqueShopsModel.Shops" />
           <EntitySet Name="UserLikedItem" EntityType="ButiqueShopsModel.UserLikedItem" />
           <EntitySet Name="UserLikeShop" EntityType="ButiqueShopsModel.UserLikeShop" />
           <EntitySet Name="UserVisitedShop" EntityType="ButiqueShopsModel.UserVisitedShop" />
           <EntitySet Name="UserVistedItem" EntityType="ButiqueShopsModel.UserVistedItem" />
-          <AssociationSet Name="AddressCons" Association="ButiqueShopsModel.AddressCons">
-            <End Role="Addresses" EntitySet="Addresses" />
-            <End Role="Shops" EntitySet="Shops" />
-          </AssociationSet>
           <AssociationSet Name="ItemTypeCons" Association="ButiqueShopsModel.ItemTypeCons">
             <End Role="ItemTypes" EntitySet="ItemTypes" />
             <End Role="Items" EntitySet="Items" />
@@ -453,20 +419,9 @@
             <End Role="Items" EntitySet="Items" />
             <End Role="UserVistedItem" EntitySet="UserVistedItem" />
           </AssociationSet>
-          <AssociationSet Name="ShopsCons" Association="ButiqueShopsModel.ShopsCons">
-            <End Role="Shops" EntitySet="Shops" />
-            <End Role="Items" EntitySet="Items" />
-          </AssociationSet>
-          <AssociationSet Name="ShopUserLiked" Association="ButiqueShopsModel.ShopUserLiked">
-            <End Role="Shops" EntitySet="Shops" />
-            <End Role="UserLikeShop" EntitySet="UserLikeShop" />
-          </AssociationSet>
-          <AssociationSet Name="ShopUserVisited" Association="ButiqueShopsModel.ShopUserVisited">
-            <End Role="Shops" EntitySet="Shops" />
-            <End Role="UserVisitedShop" EntitySet="UserVisitedShop" />
-          </AssociationSet>
           <EntitySet Name="AspNetRoles" EntityType="ButiqueShopsModel.AspNetRoles" />
           <EntitySet Name="AspNetUsers" EntityType="ButiqueShopsModel.AspNetUsers" />
+          <EntitySet Name="Shops" EntityType="ButiqueShopsModel.Shops" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ButiqueShopsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -495,23 +450,23 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserVisitedShop" EntitySet="UserVisitedShop" />
           </AssociationSet>
+          <AssociationSet Name="ShopsCons" Association="ButiqueShopsModel.ShopsCons">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="ShopUserLiked" Association="ButiqueShopsModel.ShopUserLiked">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="UserLikeShop" EntitySet="UserLikeShop" />
+          </AssociationSet>
+          <AssociationSet Name="ShopUserVisited" Association="ButiqueShopsModel.ShopUserVisited">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="UserVisitedShop" EntitySet="UserVisitedShop" />
+          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="ButiqueShopsModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           </EntityContainer>
-        <EntityType Name="Addresses">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HouseNo" Type="Int32" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.AddressCons" FromRole="Addresses" ToRole="Shops" />
-        </EntityType>
         <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
@@ -559,24 +514,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemTypeCons" FromRole="ItemTypes" ToRole="Items" />
         </EntityType>
-        <EntityType Name="Shops">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="AddressId" Type="Int32" />
-          <Property Name="OwnerId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="LogoPath" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Addresses" Relationship="ButiqueShopsModel.AddressCons" FromRole="Shops" ToRole="Addresses" />
-          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Shops" ToRole="Items" />
-          <NavigationProperty Name="UserLikeShop" Relationship="ButiqueShopsModel.ShopUserLiked" FromRole="Shops" ToRole="UserLikeShop" />
-          <NavigationProperty Name="UserVisitedShop" Relationship="ButiqueShopsModel.ShopUserVisited" FromRole="Shops" ToRole="UserVisitedShop" />
-          <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.ShopOwnerCons" FromRole="Shops" ToRole="AspNetUsers" />
-        </EntityType>
         <EntityType Name="UserLikedItem">
           <Key>
             <PropertyRef Name="Id" />
@@ -598,8 +535,8 @@
           <Property Name="ShopId" Type="Int32" Nullable="false" />
           <Property Name="LikedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ShopUserLiked" FromRole="UserLikeShop" ToRole="Shops" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.UserShopLiked" FromRole="UserLikeShop" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ShopUserLiked" FromRole="UserLikeShop" ToRole="Shops" />
         </EntityType>
         <EntityType Name="UserVisitedShop">
           <Key>
@@ -609,8 +546,8 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ShopId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ShopUserVisited" FromRole="UserVisitedShop" ToRole="Shops" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.UserShopVisited" FromRole="UserVisitedShop" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ShopUserVisited" FromRole="UserVisitedShop" ToRole="Shops" />
         </EntityType>
         <EntityType Name="UserVistedItem">
           <Key>
@@ -623,18 +560,6 @@
           <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemUserVisited" FromRole="UserVistedItem" ToRole="Items" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.UserItemVisited" FromRole="UserVistedItem" ToRole="AspNetUsers" />
         </EntityType>
-        <Association Name="AddressCons">
-          <End Type="ButiqueShopsModel.Addresses" Role="Addresses" Multiplicity="0..1" />
-          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Addresses">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Shops">
-              <PropertyRef Name="AddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ItemTypeCons">
           <End Type="ButiqueShopsModel.ItemTypes" Role="ItemTypes" Multiplicity="1" />
           <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
@@ -671,47 +596,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ShopsCons">
-          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="0..1" />
-          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shops">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Items">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ShopUserLiked">
-          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="1" />
-          <End Type="ButiqueShopsModel.UserLikeShop" Role="UserLikeShop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shops">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserLikeShop">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ShopUserVisited">
-          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="1" />
-          <End Type="ButiqueShopsModel.UserVisitedShop" Role="UserVisitedShop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shops">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserVisitedShop">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
@@ -724,7 +613,7 @@
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="MemberSince" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="AddressId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -743,6 +632,23 @@
           <NavigationProperty Name="UserLikeShop" Relationship="ButiqueShopsModel.UserShopLiked" FromRole="AspNetUsers" ToRole="UserLikeShop" />
           <NavigationProperty Name="UserVisitedShop" Relationship="ButiqueShopsModel.UserShopVisited" FromRole="AspNetUsers" ToRole="UserVisitedShop" />
           <NavigationProperty Name="AspNetRoles" Relationship="ButiqueShopsModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Shops">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LogoPath" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.ShopOwnerCons" FromRole="Shops" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Shops" ToRole="Items" />
+          <NavigationProperty Name="UserLikeShop" Relationship="ButiqueShopsModel.ShopUserLiked" FromRole="Shops" ToRole="UserLikeShop" />
+          <NavigationProperty Name="UserVisitedShop" Relationship="ButiqueShopsModel.ShopUserVisited" FromRole="Shops" ToRole="UserVisitedShop" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="ButiqueShopsModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -832,6 +738,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ShopsCons">
+          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="0..1" />
+          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ShopUserLiked">
+          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="1" />
+          <End Type="ButiqueShopsModel.UserLikeShop" Role="UserLikeShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLikeShop">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ShopUserVisited">
+          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="1" />
+          <End Type="ButiqueShopsModel.UserVisitedShop" Role="UserVisitedShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserVisitedShop">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="ButiqueShopsModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="ButiqueShopsModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
@@ -842,18 +784,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ButiqueShopsModelStoreContainer" CdmEntityContainer="ButiqueShopsEntities">
-          <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="ButiqueShopsModel.Addresses">
-              <MappingFragment StoreEntitySet="Addresses">
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="ButiqueShopsModel.AspNetUserClaims">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
@@ -891,20 +821,6 @@
           <EntitySetMapping Name="ItemTypes">
             <EntityTypeMapping TypeName="ButiqueShopsModel.ItemTypes">
               <MappingFragment StoreEntitySet="ItemTypes">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Shops">
-            <EntityTypeMapping TypeName="ButiqueShopsModel.Shops">
-              <MappingFragment StoreEntitySet="Shops">
-                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
-                <ScalarProperty Name="LogoPath" ColumnName="LogoPath" />
-                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
-                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -973,11 +889,25 @@
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="MemberSince" ColumnName="MemberSince" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shops">
+            <EntityTypeMapping TypeName="ButiqueShopsModel.Shops">
+              <MappingFragment StoreEntitySet="Shops">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="LogoPath" ColumnName="LogoPath" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

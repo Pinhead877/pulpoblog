@@ -12,6 +12,6 @@ namespace ButiqueShops.ViewModels
         [Display(Name = "User Name")]
         public string UserId { get; set; }
         [Display(Name ="Role Name")]
-        public int RoleId { get; set; }
+        public string RoleId { get; set; }
     }
 }

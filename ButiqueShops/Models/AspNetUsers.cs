@@ -32,7 +32,7 @@ namespace ButiqueShops.Models
         public bool EmailConfirmed { get; set; }
         public System.DateTime MemberSince { get; set; }
         public System.DateTime Birthday { get; set; }
-        public Nullable<int> AddressId { get; set; }
+        public string Address { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
         public string PhoneNumber { get; set; }

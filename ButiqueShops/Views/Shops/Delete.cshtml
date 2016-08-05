@@ -1,0 +1,82 @@
+﻿@model ButiqueShops.Models.Shops
+
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="container first">
+    <h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Shops</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Website)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Website)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LogoPath)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LogoPath)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateAdded)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Addresses.Street)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Addresses.Street)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetUsers.Email)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+    </div>

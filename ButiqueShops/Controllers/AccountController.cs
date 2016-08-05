@@ -140,13 +140,7 @@ namespace ButiqueShops.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            List<SelectListItem> items = new List<SelectListItem>();
-
-            items.Add(new SelectListItem { Text = " ", Value = "" });
-            items.Add(new SelectListItem { Text = "Male", Value = "Male" });
-            items.Add(new SelectListItem { Text = "Female", Value = "Female" });
-
-            ViewBag.Gender = items;
+            genereteGenderDropDownList();
 
             return View();
         }
@@ -183,9 +177,12 @@ namespace ButiqueShops.Controllers
                 AddErrors(result);
             }
 
+            genereteGenderDropDownList();
+
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
 
         //
         // GET: /Account/ConfirmEmail
@@ -418,7 +415,7 @@ namespace ButiqueShops.Controllers
             return View();
         }
 
-
+        [Authorize]
         public ActionResult UserProfile()
         {
             return View("Profile");
@@ -500,6 +497,16 @@ namespace ButiqueShops.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+        private void genereteGenderDropDownList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem { Text = " ", Value = "" });
+            items.Add(new SelectListItem { Text = "Male", Value = "Male" });
+            items.Add(new SelectListItem { Text = "Female", Value = "Female" });
+
+            ViewBag.Gender = items;
         }
         #endregion
     }

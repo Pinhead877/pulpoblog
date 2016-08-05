@@ -10,6 +10,7 @@ using ButiqueShops.Models;
 using System.Threading.Tasks;
 using AutoMapper;
 using ButiqueShops.ViewModels;
+using ButiqueShops.Extensions;
 
 namespace ButiqueShops.Controllers
 {
@@ -24,6 +25,7 @@ namespace ButiqueShops.Controllers
 
 
         // GET: Roles
+        [AuthorizeRoles(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View(db.AspNetRoles.ToList());
@@ -59,6 +61,7 @@ namespace ButiqueShops.Controllers
         {
             if (ModelState.IsValid)
             {
+                aspNetRoles.Id = Guid.NewGuid().ToString();
                 db.AspNetRoles.Add(aspNetRoles);
                 db.SaveChanges();
                 return RedirectToAction("Index");
