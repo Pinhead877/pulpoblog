@@ -12,15 +12,19 @@ namespace ButiqueShops.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLikedItem
+    public partial class Sizes
     {
-        public int Id { get; set; }
-        public string UserId { get; set; }
-        public int ItemId { get; set; }
-        public System.DateTime LikedOn { get; set; }
-        public bool IsActive { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sizes()
+        {
+            this.Items = new HashSet<Items>();
+        }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual Items Items { get; set; }
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string ShortName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Items> Items { get; set; }
     }
 }

@@ -173,9 +173,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ColorsController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
+    <Compile Include="Controllers\SizesController.cs" />
     <Compile Include="Controllers\UserRolesController.cs" />
     <Compile Include="Extensions\AuthorizeRoles.cs" />
     <Compile Include="Extensions\Mapper.cs" />
@@ -187,6 +189,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>ButiqueModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Colors.cs">
+      <DependentUpon>ButiqueModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sizes.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -221,6 +229,7 @@
     <Compile Include="Models\ItemTypes.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ItemsViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Shops.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
@@ -414,7 +423,6 @@
     <Content Include="Views\UserRoles\Create.cshtml" />
     <Content Include="Views\Shop\ShopItems.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
-    <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
@@ -424,6 +432,17 @@
     <Content Include="Views\Shops\Details.cshtml" />
     <Content Include="Views\Shops\Edit.cshtml" />
     <Content Include="Views\Shops\Index.cshtml" />
+    <Content Include="Views\Colors\Create.cshtml" />
+    <Content Include="Views\Colors\Delete.cshtml" />
+    <Content Include="Views\Colors\Details.cshtml" />
+    <Content Include="Views\Colors\Edit.cshtml" />
+    <Content Include="Views\Colors\Index.cshtml" />
+    <Content Include="Views\Sizes\Create.cshtml" />
+    <Content Include="Views\Sizes\Delete.cshtml" />
+    <Content Include="Views\Sizes\Details.cshtml" />
+    <Content Include="Views\Sizes\Edit.cshtml" />
+    <Content Include="Views\Sizes\Index.cshtml" />
+    <Content Include="Views\Items\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
