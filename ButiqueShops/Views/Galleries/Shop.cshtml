@@ -1,7 +1,69 @@
-﻿
+﻿@model ButiqueShops.Models.Shops
+
 @{
-    ViewBag.Title = "Shop";
+    ViewBag.Title = Model.Name;
 }
+<div class="container first">
+    <header class="row"><h2 class="text-center">@Model.Name</h2></header>
+    <section class="row">
+        <article class="col-sm-5" style="padding-right:10px;">
+            <h3 class="text-left">Details</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Phone Number:</h4>
+                    <p class="list-group-item-text">@Model.Phone</p>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Address:</h4>
+                    <p class="list-group-item-text">@Model.Address</p>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Social Media:</h4>
+                    <p class="list-group-item-text">
+                        <a href="@Model.Website" target="_blank">@Model.Website</a>
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Like:</h4>
+                    <p class="list-group-item-text">
+                        @if (ViewBag.likedShop==true)
+                        {
+                            <i id="like" class="fa fa-heart red" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
+                        }
+                        else
+                        {
+                            <i id="like" class="fa fa-heart-o" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
+                        }
+                    </p>
+                </li>
+            </ul>
+        </article>
+        <article class="col-sm-2"></article>
+        <article class="col-sm-5">
+            <img src="@Model.LogoPath" class="img-responsive img-thumbnail" />
+        </article>
+    </section>
+    <footer class="row">
+        <div id="map"></div>
+    </footer>
+</div>
+<script>
+    var lat = @Model.Latitude;
+    var lng = @Model.Longitude;
+</script>
 
-<h2>Shop</h2>
-
+@section Scripts{
+<script>
+        var lat, lng;
+</script>
+@if (Model.Longitude != null && Model.Latitude != null)
+    {
+    <script>
+            lat = @Model.Latitude;
+            lng = @Model.Longitude;
+    </script>
+}
+    <script src="~/Scripts/Galleries/shop.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqvxTlef1NYM-glh2AdxQWOLh9CvO26Is&callback=initMap"></script>
+    <script src="~/Scripts/GMaps/gmaps.min.js"></script>
+}

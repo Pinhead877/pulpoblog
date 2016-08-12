@@ -1,7 +1,21 @@
 @import "variables.less";
 @import "mixins.less";
 
+.list-group {
+    .list-group-item {
+        border: none;
+        background-color: transparent;
+        border-left: 1px solid white;
+        border-radius: 0;
+        .list-group-item-heading {
+            text-align: left;
+        }
 
+        .list-group-item-text {
+            text-align: right;
+        }
+    }
+}
 
 body {
     width: 100%;
@@ -61,13 +75,13 @@ a {
     font-weight: 400;
 }
 
-.first{
-        display: table;
-        height: auto;
-        padding: 125px 0 100px 0;
-        text-align: center;
-        color: white;
-        background-color: black;
+.first {
+    display: table;
+    height: auto;
+    padding: 125px 0 100px 0;
+    text-align: center;
+    color: white;
+    background-color: black;
 }
 
 .navbar-custom {
@@ -84,52 +98,52 @@ a {
         transition: background 1s ease-out,padding .5s ease-in;*/
         background-color: white;
 
-        .logo-img{
-        position: absolute;
-        width: 195px;
-    }
+        .logo-img {
+            position: absolute;
+            width: 195px;
+        }
 
         .nav {
-        li {
-            a {
-                -webkit-transition: background .3s ease-in-out;
-                -moz-transition: background .3s ease-in-out;
-                -o-transition: background .3s ease-in-out;
-                transition: background .3s ease-in-out;
-
-                &:hover {
-                    color: fade(gray, 80%);
-                    outline: none;
-                    background-color: transparent;
-                }
-
-                &:focus,
-                &:active {
-                    outline: none;
-                    background-color: transparent;
-                }
-            }
-
-            &.active {
-                outline: none;
-
+            li {
                 a {
-                    background-color: fade(black, 30%);
+                    -webkit-transition: background .3s ease-in-out;
+                    -moz-transition: background .3s ease-in-out;
+                    -o-transition: background .3s ease-in-out;
+                    transition: background .3s ease-in-out;
 
                     &:hover {
-                        color: black;
+                        color: fade(gray, 80%);
+                        outline: none;
+                        background-color: transparent;
+                    }
+
+                    &:focus,
+                    &:active {
+                        outline: none;
+                        background-color: transparent;
+                    }
+                }
+
+                &.active {
+                    outline: none;
+
+                    a {
+                        background-color: fade(black, 30%);
+
+                        &:hover {
+                            color: black;
+                        }
                     }
                 }
             }
         }
-    }
 
         a {
             color: black;
         }
     }
 
-    .tooltip{
+    .tooltip {
         font-size: large;
     }
 
@@ -200,7 +214,6 @@ a {
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -o-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;*/
-
         &.top-nav-collapse {
             background: black;
             padding: 0;
@@ -362,7 +375,7 @@ a {
 #map {
     width: 100%;
     height: 200px;
-    margin-top: 100px;
+    /*margin-top: 100px;*/
 }
 
 @media(min-width:767px) {
@@ -376,7 +389,7 @@ a {
 
     #map {
         height: 400px;
-        margin-top: 250px;
+        /*margin-top: 250px;*/
     }
 }
 
@@ -452,3 +465,11 @@ img::selection {
 img::-moz-selection {
     background: transparent;
 }
+
+#like{
+    cursor: pointer;
+}
+    .red{
+        color: red;
+        font-size: x-large;
+    }

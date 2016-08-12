@@ -22,7 +22,7 @@ namespace ButiqueShops.ViewModels
         public string Phone { get; set; }
 
         [Display(Name = "Adress")]
-        public Nullable<int> AddressId { get; set; }
+        public string AddressId { get; set; }
 
         [Required]
         [Display(Name = "Store Owner")]

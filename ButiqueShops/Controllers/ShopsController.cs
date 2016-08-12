@@ -8,11 +8,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ButiqueShops.Models;
+using ButiqueShops.Extensions;
 
 namespace ButiqueShops.Controllers
 {
+    [AuthorizeRoles(Roles = "Administrator")]
     public class ShopsController : Controller
     {
+
         private ButiqueShopsEntities db = new ButiqueShopsEntities();
 
         // GET: Shops
@@ -45,14 +48,13 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Shops/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Name,Website,Phone,AddressId,OwnerId,LogoPath")] Shops shops)
+        public async Task<ActionResult> Create(Shops shops)
         {
             if (ModelState.IsValid)
             {
+                shops.DateAdded = DateTime.Now;
                 db.Shops.Add(shops);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -79,11 +81,9 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Shops/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Name,Website,Phone,AddressId,OwnerId,LogoPath")] Shops shops)
+        public async Task<ActionResult> Edit(Shops shops)
         {
             if (ModelState.IsValid)
             {
@@ -102,10 +102,15 @@ namespace ButiqueShops.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Shops shops = await db.Shops.FindAsync(id);
+            Shops shops = await db.Shops.Include(shop => shop.Items).Where(s => s.Id == id).FirstOrDefaultAsync();
             if (shops == null)
             {
                 return HttpNotFound();
+            }else if (shops.Items.Count > 0)
+            {
+                ViewBag.ErrorTitle = "Can't Delete";
+                ViewBag.ErrorMessage = "The system cannot delete a shop that has items. Please delete the items first and try again.";
+                return View("Error");
             }
             return View(shops);
         }

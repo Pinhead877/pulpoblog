@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "Scripts/GMaps/gmaps.min.js",
+    "inputFiles": [
+      "Scripts/GMaps/gmaps.js"
+    ]
+  }
+]

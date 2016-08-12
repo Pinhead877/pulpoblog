@@ -34,9 +34,9 @@ namespace ButiqueShops.Models
         public virtual DbSet<UserVistedItem> UserVistedItem { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Shops> Shops { get; set; }
         public virtual DbSet<Colors> Colors { get; set; }
         public virtual DbSet<Sizes> Sizes { get; set; }
         public virtual DbSet<Items> Items { get; set; }
+        public virtual DbSet<Shops> Shops { get; set; }
     }
 }

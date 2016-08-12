@@ -176,6 +176,7 @@
     <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
     <Compile Include="Controllers\SizesController.cs" />
     <Compile Include="Controllers\UserRolesController.cs" />
@@ -357,6 +358,8 @@
     <Content Include="Images\Layout\logo.png" />
     <Content Include="Images\owl-crsl\AjaxLoader.gif" />
     <Content Include="Images\owl-crsl\grabbing.png" />
+    <Content Include="Images\Shops\logo-1.jpg" />
+    <Content Include="Images\Shops\store-1.jpg" />
     <Content Include="Models\ButiqueModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ButiqueModels.edmx</DependentUpon>
@@ -414,6 +417,7 @@
     <Content Include="Content\grayscale.less" />
     <Content Include="Content\mixins.less" />
     <Content Include="Content\variables.less" />
+    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -424,6 +428,9 @@
     <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Galleries\shop.js" />
+    <Content Include="Scripts\GMaps\gmaps.js" />
+    <Content Include="Scripts\GMaps\gmaps.min.js" />
     <Content Include="Scripts\grayscale.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <Content Include="Scripts\index\index.js" />
@@ -434,6 +441,7 @@
     <Content Include="Scripts\owl-crsl\owl.carousel.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Shops\create.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -518,6 +526,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

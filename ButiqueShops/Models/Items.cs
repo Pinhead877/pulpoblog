@@ -37,10 +37,10 @@ namespace ButiqueShops.Models
         public virtual ICollection<UserLikedItem> UserLikedItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVistedItem> UserVistedItem { get; set; }
-        public virtual Shops Shops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Colors> Colors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sizes> Sizes { get; set; }
+        public virtual Shops Shops { get; set; }
     }
 }
