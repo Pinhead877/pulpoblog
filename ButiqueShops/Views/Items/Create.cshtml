@@ -1,4 +1,4 @@
-﻿@model ButiqueShops.Models.Items
+﻿@model ButiqueShops.ViewModels.ItemsViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -26,7 +26,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.TypeId, "TypeId", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("TypeId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("TypeId", null, string.Empty, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -48,34 +48,34 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Colors, "Colors", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+                    @Html.ListBox("colorsIds", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Colors, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sizes, "Sizes", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.ListBox("sizesIds", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Sizes, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.ShopId, "ShopId", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("ShopId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("ShopId", null, string.Empty, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ShopId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DateAdded, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DateAdded, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -88,6 +88,13 @@
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @if (ViewBag.ReturnUrl == null)
+        {
+            @Html.ActionLink("Back to List", "Index")
+        }
+        else
+        {
+            @Html.ActionLink("Back to List", "Index", "Shops")
+        }
     </div>
 </div>

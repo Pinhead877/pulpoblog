@@ -19,7 +19,7 @@ namespace ButiqueShops.Models
         public int ItemId { get; set; }
         public System.DateTime VisitedOn { get; set; }
     
-        public virtual Items Items { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Items Items { get; set; }
     }
 }

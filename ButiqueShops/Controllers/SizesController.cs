@@ -11,112 +11,107 @@ using ButiqueShops.Models;
 
 namespace ButiqueShops.Controllers
 {
-    public class ShopsController : Controller
+    public class SizesController : Controller
     {
         private ButiqueShopsEntities db = new ButiqueShopsEntities();
 
-        // GET: Shops
+        // GET: Sizes
         public async Task<ActionResult> Index()
         {
-            var shops = db.Shops.Include(s => s.AspNetUsers);
-            return View(await shops.ToListAsync());
+            return View(await db.Sizes.ToListAsync());
         }
 
-        // GET: Shops/Details/5
+        // GET: Sizes/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Shops shops = await db.Shops.FindAsync(id);
-            if (shops == null)
+            Sizes sizes = await db.Sizes.FindAsync(id);
+            if (sizes == null)
             {
                 return HttpNotFound();
             }
-            return View(shops);
+            return View(sizes);
         }
 
-        // GET: Shops/Create
+        // GET: Sizes/Create
         public ActionResult Create()
         {
-            ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName");
             return View();
         }
 
-        // POST: Shops/Create
+        // POST: Sizes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Name,Website,Phone,AddressId,OwnerId,LogoPath")] Shops shops)
+        public async Task<ActionResult> Create([Bind(Include = "Id,FullName,ShortName")] Sizes sizes)
         {
             if (ModelState.IsValid)
             {
-                db.Shops.Add(shops);
+                db.Sizes.Add(sizes);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName", shops.OwnerId);
-            return View(shops);
+            return View(sizes);
         }
 
-        // GET: Shops/Edit/5
+        // GET: Sizes/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Shops shops = await db.Shops.FindAsync(id);
-            if (shops == null)
+            Sizes sizes = await db.Sizes.FindAsync(id);
+            if (sizes == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName", shops.OwnerId);
-            return View(shops);
+            return View(sizes);
         }
 
-        // POST: Shops/Edit/5
+        // POST: Sizes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Name,Website,Phone,AddressId,OwnerId,LogoPath")] Shops shops)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FullName,ShortName")] Sizes sizes)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(shops).State = EntityState.Modified;
+                db.Entry(sizes).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName", shops.OwnerId);
-            return View(shops);
+            return View(sizes);
         }
 
-        // GET: Shops/Delete/5
+        // GET: Sizes/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Shops shops = await db.Shops.FindAsync(id);
-            if (shops == null)
+            Sizes sizes = await db.Sizes.FindAsync(id);
+            if (sizes == null)
             {
                 return HttpNotFound();
             }
-            return View(shops);
+            return View(sizes);
         }
 
-        // POST: Shops/Delete/5
+        // POST: Sizes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Shops shops = await db.Shops.FindAsync(id);
-            db.Shops.Remove(shops);
+            Sizes sizes = await db.Sizes.FindAsync(id);
+            db.Sizes.Remove(sizes);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

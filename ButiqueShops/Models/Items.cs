@@ -19,15 +19,16 @@ namespace ButiqueShops.Models
         {
             this.UserLikedItem = new HashSet<UserLikedItem>();
             this.UserVistedItem = new HashSet<UserVistedItem>();
+            this.Colors = new HashSet<Colors>();
+            this.Sizes = new HashSet<Sizes>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public int TypeId { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public int Quantity { get; set; }
-        public string Color { get; set; }
-        public string Size { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public string ImagePath { get; set; }
         public Nullable<int> ShopId { get; set; }
         public System.DateTime DateAdded { get; set; }
     
@@ -37,5 +38,9 @@ namespace ButiqueShops.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVistedItem> UserVistedItem { get; set; }
         public virtual Shops Shops { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Colors> Colors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sizes> Sizes { get; set; }
     }
 }

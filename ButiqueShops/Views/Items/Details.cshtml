@@ -1,5 +1,4 @@
-﻿@model ButiqueShops.Models.Items
-
+﻿@model ButiqueShops.ViewModels.ItemsViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -35,19 +34,20 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Color)
+                @Html.DisplayNameFor(model => model.Colors)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Color)
+                @*@Html.DisplayFor(model => model.ColorId)*@
+                @Html.ListBox("Colors", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Size)
+                @Html.DisplayNameFor(model => model.Sizes)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Size)
+                @Html.ListBox("Sizes", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
             </dd>
 
             <dt>

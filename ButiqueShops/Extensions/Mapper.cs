@@ -26,7 +26,8 @@ namespace ButiqueShops
                 mapper.CreateMap<UserViewModel, AspNetUsers>()
                 .ForMember(dest => dest.AspNetRoles, opt => opt.MapFrom(src => src.Roles));
 
-
+                mapper.CreateMap<Items, ItemsViewModel>();
+                mapper.CreateMap<ItemsViewModel, Items>();
             });
             
         }

@@ -60,6 +60,21 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Gender" Type="nvarchar" MaxLength="7" />
         </EntityType>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemColors">
+          <Key>
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="ColorId" />
+          </Key>
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="ColorId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Items">
           <Key>
             <PropertyRef Name="Id" />
@@ -68,11 +83,18 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TypeId" Type="int" Nullable="false" />
           <Property Name="Price" Type="money" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="Color" Type="nvarchar" MaxLength="10" />
-          <Property Name="Size" Type="nvarchar" MaxLength="10" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ShopId" Type="int" />
           <Property Name="DateAdded" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemSizes">
+          <Key>
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="SizeId" />
+          </Key>
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="SizeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemTypes">
           <Key>
@@ -93,6 +115,14 @@
           <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LogoPath" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DateAdded" Type="date" />
+        </EntityType>
+        <EntityType Name="Sizes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="UserLikedItem">
           <Key>
@@ -185,6 +215,58 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ItemSizes_dbo_Items_ItemId">
+          <End Role="Items" Type="Self.Items" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ItemSizes" Type="Self.ItemSizes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemSizes">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ItemSizes_dbo_Sizes_SizeId">
+          <End Role="Sizes" Type="Self.Sizes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ItemSizes" Type="Self.ItemSizes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sizes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemSizes">
+              <PropertyRef Name="SizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemColors_Colors">
+          <End Role="Colors" Type="Self.Colors" Multiplicity="1" />
+          <End Role="ItemColors" Type="Self.ItemColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemColors">
+              <PropertyRef Name="ColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemColors_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemColors" Type="Self.ItemColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemColors">
+              <PropertyRef Name="ItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -326,9 +408,13 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemColors" EntityType="Self.ItemColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemSizes" EntityType="Self.ItemSizes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemTypes" EntityType="Self.ItemTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shops" EntityType="Self.Shops" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sizes" EntityType="Self.Sizes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLikedItem" EntityType="Self.UserLikedItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLikeShop" EntityType="Self.UserLikeShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserVisitedShop" EntityType="Self.UserVisitedShop" Schema="dbo" store:Type="Tables" />
@@ -348,6 +434,22 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ItemSizes_dbo_Items_ItemId" Association="Self.FK_dbo_ItemSizes_dbo_Items_ItemId">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemSizes" EntitySet="ItemSizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ItemSizes_dbo_Sizes_SizeId" Association="Self.FK_dbo_ItemSizes_dbo_Sizes_SizeId">
+            <End Role="Sizes" EntitySet="Sizes" />
+            <End Role="ItemSizes" EntitySet="ItemSizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemColors_Colors" Association="Self.FK_ItemColors_Colors">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="ItemColors" EntitySet="ItemColors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemColors_Items" Association="Self.FK_ItemColors_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemColors" EntitySet="ItemColors" />
           </AssociationSet>
           <AssociationSet Name="ItemTypeCons" Association="Self.ItemTypeCons">
             <End Role="ItemTypes" EntitySet="ItemTypes" />
@@ -401,24 +503,11 @@
         <EntityContainer Name="ButiqueShopsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetUserClaims" EntityType="ButiqueShopsModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="ButiqueShopsModel.AspNetUserLogins" />
-          <EntitySet Name="Items" EntityType="ButiqueShopsModel.Items" />
           <EntitySet Name="ItemTypes" EntityType="ButiqueShopsModel.ItemTypes" />
           <EntitySet Name="UserLikedItem" EntityType="ButiqueShopsModel.UserLikedItem" />
           <EntitySet Name="UserLikeShop" EntityType="ButiqueShopsModel.UserLikeShop" />
           <EntitySet Name="UserVisitedShop" EntityType="ButiqueShopsModel.UserVisitedShop" />
           <EntitySet Name="UserVistedItem" EntityType="ButiqueShopsModel.UserVistedItem" />
-          <AssociationSet Name="ItemTypeCons" Association="ButiqueShopsModel.ItemTypeCons">
-            <End Role="ItemTypes" EntitySet="ItemTypes" />
-            <End Role="Items" EntitySet="Items" />
-          </AssociationSet>
-          <AssociationSet Name="ItemUserLiked" Association="ButiqueShopsModel.ItemUserLiked">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="UserLikedItem" EntitySet="UserLikedItem" />
-          </AssociationSet>
-          <AssociationSet Name="ItemUserVisited" Association="ButiqueShopsModel.ItemUserVisited">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="UserVistedItem" EntitySet="UserVistedItem" />
-          </AssociationSet>
           <EntitySet Name="AspNetRoles" EntityType="ButiqueShopsModel.AspNetRoles" />
           <EntitySet Name="AspNetUsers" EntityType="ButiqueShopsModel.AspNetUsers" />
           <EntitySet Name="Shops" EntityType="ButiqueShopsModel.Shops" />
@@ -450,10 +539,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserVisitedShop" EntitySet="UserVisitedShop" />
           </AssociationSet>
-          <AssociationSet Name="ShopsCons" Association="ButiqueShopsModel.ShopsCons">
-            <End Role="Shops" EntitySet="Shops" />
-            <End Role="Items" EntitySet="Items" />
-          </AssociationSet>
           <AssociationSet Name="ShopUserLiked" Association="ButiqueShopsModel.ShopUserLiked">
             <End Role="Shops" EntitySet="Shops" />
             <End Role="UserLikeShop" EntitySet="UserLikeShop" />
@@ -465,6 +550,33 @@
           <AssociationSet Name="AspNetUserRoles" Association="ButiqueShopsModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Colors" EntityType="ButiqueShopsModel.Colors" />
+          <EntitySet Name="Sizes" EntityType="ButiqueShopsModel.Sizes" />
+          <EntitySet Name="Items" EntityType="ButiqueShopsModel.Items" />
+          <AssociationSet Name="ItemTypeCons" Association="ButiqueShopsModel.ItemTypeCons">
+            <End Role="ItemTypes" EntitySet="ItemTypes" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="ItemUserLiked" Association="ButiqueShopsModel.ItemUserLiked">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="UserLikedItem" EntitySet="UserLikedItem" />
+          </AssociationSet>
+          <AssociationSet Name="ItemUserVisited" Association="ButiqueShopsModel.ItemUserVisited">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="UserVistedItem" EntitySet="UserVistedItem" />
+          </AssociationSet>
+          <AssociationSet Name="ShopsCons" Association="ButiqueShopsModel.ShopsCons">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="ItemColors" Association="ButiqueShopsModel.ItemColors">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="ItemSizes" Association="ButiqueShopsModel.ItemSizes">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Sizes" EntitySet="Sizes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetUserClaims">
@@ -488,24 +600,6 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="Items">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TypeId" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Size" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="ShopId" Type="Int32" />
-          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="ItemTypes" Relationship="ButiqueShopsModel.ItemTypeCons" FromRole="Items" ToRole="ItemTypes" />
-          <NavigationProperty Name="UserLikedItem" Relationship="ButiqueShopsModel.ItemUserLiked" FromRole="Items" ToRole="UserLikedItem" />
-          <NavigationProperty Name="UserVistedItem" Relationship="ButiqueShopsModel.ItemUserVisited" FromRole="Items" ToRole="UserVistedItem" />
-          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Items" ToRole="Shops" />
-        </EntityType>
         <EntityType Name="ItemTypes">
           <Key>
             <PropertyRef Name="Id" />
@@ -523,8 +617,8 @@
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <Property Name="LikedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemUserLiked" FromRole="UserLikedItem" ToRole="Items" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.UserItemLiked" FromRole="UserLikedItem" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemUserLiked" FromRole="UserLikedItem" ToRole="Items" />
         </EntityType>
         <EntityType Name="UserLikeShop">
           <Key>
@@ -557,45 +651,9 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <Property Name="VisitedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemUserVisited" FromRole="UserVistedItem" ToRole="Items" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.UserItemVisited" FromRole="UserVistedItem" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemUserVisited" FromRole="UserVistedItem" ToRole="Items" />
         </EntityType>
-        <Association Name="ItemTypeCons">
-          <End Type="ButiqueShopsModel.ItemTypes" Role="ItemTypes" Multiplicity="1" />
-          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ItemTypes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Items">
-              <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ItemUserLiked">
-          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="1" />
-          <End Type="ButiqueShopsModel.UserLikedItem" Role="UserLikedItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserLikedItem">
-              <PropertyRef Name="ItemId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ItemUserVisited">
-          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="1" />
-          <End Type="ButiqueShopsModel.UserVistedItem" Role="UserVistedItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserVistedItem">
-              <PropertyRef Name="ItemId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -646,9 +704,9 @@
           <Property Name="LogoPath" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DateAdded" Type="DateTime" Precision="0" />
           <NavigationProperty Name="AspNetUsers" Relationship="ButiqueShopsModel.ShopOwnerCons" FromRole="Shops" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Shops" ToRole="Items" />
           <NavigationProperty Name="UserLikeShop" Relationship="ButiqueShopsModel.ShopUserLiked" FromRole="Shops" ToRole="UserLikeShop" />
           <NavigationProperty Name="UserVisitedShop" Relationship="ButiqueShopsModel.ShopUserVisited" FromRole="Shops" ToRole="UserVisitedShop" />
+          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Shops" ToRole="Items" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="ButiqueShopsModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -738,18 +796,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ShopsCons">
-          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="0..1" />
-          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shops">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Items">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ShopUserLiked">
           <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="1" />
           <End Type="ButiqueShopsModel.UserLikeShop" Role="UserLikeShop" Multiplicity="*" />
@@ -778,6 +824,98 @@
           <End Type="ButiqueShopsModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="ButiqueShopsModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemColors" FromRole="Colors" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Sizes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemSizes" FromRole="Sizes" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShopId" Type="Int32" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ItemTypes" Relationship="ButiqueShopsModel.ItemTypeCons" FromRole="Items" ToRole="ItemTypes" />
+          <NavigationProperty Name="UserLikedItem" Relationship="ButiqueShopsModel.ItemUserLiked" FromRole="Items" ToRole="UserLikedItem" />
+          <NavigationProperty Name="UserVistedItem" Relationship="ButiqueShopsModel.ItemUserVisited" FromRole="Items" ToRole="UserVistedItem" />
+          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Items" ToRole="Shops" />
+          <NavigationProperty Name="Colors" Relationship="ButiqueShopsModel.ItemColors" FromRole="Items" ToRole="Colors" />
+          <NavigationProperty Name="Sizes" Relationship="ButiqueShopsModel.ItemSizes" FromRole="Items" ToRole="Sizes" />
+        </EntityType>
+        <Association Name="ItemTypeCons">
+          <End Type="ButiqueShopsModel.ItemTypes" Role="ItemTypes" Multiplicity="1" />
+          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ItemUserLiked">
+          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="1" />
+          <End Type="ButiqueShopsModel.UserLikedItem" Role="UserLikedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLikedItem">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ItemUserVisited">
+          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="1" />
+          <End Type="ButiqueShopsModel.UserVistedItem" Role="UserVistedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserVistedItem">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ShopsCons">
+          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="0..1" />
+          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ItemColors">
+          <End Type="ButiqueShopsModel.Colors" Role="Colors" Multiplicity="*" />
+          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
+        </Association>
+        <Association Name="ItemSizes">
+          <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
+          <End Type="ButiqueShopsModel.Sizes" Role="Sizes" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -800,21 +938,6 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="ButiqueShopsModel.Items">
-              <MappingFragment StoreEntitySet="Items">
-                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -920,7 +1043,54 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Colors">
+            <EntityTypeMapping TypeName="ButiqueShopsModel.Colors">
+              <MappingFragment StoreEntitySet="Colors">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sizes">
+            <EntityTypeMapping TypeName="ButiqueShopsModel.Sizes">
+              <MappingFragment StoreEntitySet="Sizes">
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="ButiqueShopsModel.Items">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ItemColors" TypeName="ButiqueShopsModel.ItemColors" StoreEntitySet="ItemColors">
+            <EndProperty Name="Items">
+              <ScalarProperty Name="Id" ColumnName="ItemId" />
+            </EndProperty>
+            <EndProperty Name="Colors">
+              <ScalarProperty Name="Id" ColumnName="ColorId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ItemSizes" TypeName="ButiqueShopsModel.ItemSizes" StoreEntitySet="ItemSizes">
+            <EndProperty Name="Sizes">
+              <ScalarProperty Name="Id" ColumnName="SizeId" />
+            </EndProperty>
+            <EndProperty Name="Items">
+              <ScalarProperty Name="Id" ColumnName="ItemId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
