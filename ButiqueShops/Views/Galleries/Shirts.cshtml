@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Shirts";
+}
+
+<h2>Shirts</h2>
+
+<div class="container first">
+    
+        <div class="row">
+
+@for (var i = 1; i <= 12; i++) { 
+
+
+            <div class="col-md-4">
+                -
+                <a class="thumbnail">
+                    <img src="~/Images/Items/shirt/@(i).png">
+                </a>
+            </div>
+     }
+
+
+        </div>
+    
+</div>
+
+@section Scripts{
+    <link rel="stylesheet" href="~/Content/Galleries/shirt.min.css" />
+}
+
+
+
+
+

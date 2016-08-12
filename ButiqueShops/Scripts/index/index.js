@@ -2,7 +2,7 @@
 
     $("#crsl-items").owlCarousel({
 
-        autoPlay: 3000,
+        autoPlay: 1500,
 
         items: 4,
         itemsDesktop: [1199, 3],

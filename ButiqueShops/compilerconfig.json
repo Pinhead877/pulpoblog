@@ -6,5 +6,17 @@
   {
     "outputFile": "Content/index/index.css",
     "inputFile": "Content/index/index.less"
+  },
+  {
+    "outputFile": "Content/Galleries/Pants.css",
+    "inputFile": "Content/Galleries/Pants.less"
+  },
+  {
+    "outputFile": "Content/Galleries/shirt.css",
+    "inputFile": "Content/Galleries/shirt.less"
+  },
+  {
+    "outputFile": "Content/Galleries/dresses.css",
+    "inputFile": "Content/Galleries/dresses.less"
   }
 ]

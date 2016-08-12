@@ -173,6 +173,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
@@ -250,6 +251,24 @@
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Galleries\dresses.css">
+      <DependentUpon>dresses.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Galleries\dresses.min.css">
+      <DependentUpon>dresses.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Galleries\Pants.css">
+      <DependentUpon>Pants.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Galleries\Pants.min.css">
+      <DependentUpon>Pants.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Galleries\shirt.css">
+      <DependentUpon>shirt.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Galleries\shirt.min.css">
+      <DependentUpon>shirt.css</DependentUpon>
+    </Content>
     <Content Include="Content\grayscale.css" />
     <Content Include="Content\grayscale.min.css" />
     <Content Include="Content\index\index.css">
@@ -265,11 +284,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\Index\crsl\1.png" />
     <Content Include="Images\Index\crsl\2.png" />
     <Content Include="Images\Index\crsl\3.png" />
     <Content Include="Images\Index\crsl\4.png" />
+    <Content Include="Images\Index\crsl\5.png" />
+    <Content Include="Images\Index\crsl\6.png" />
+    <Content Include="Images\Index\crsl\7.png" />
+    <Content Include="Images\Index\crsl\8.png" />
     <Content Include="Images\Index\crsl\demo\1.jpg" />
+    <Content Include="Images\Index\crsl\1.png" />
     <Content Include="Images\Index\crsl\demo\2.jpg" />
     <Content Include="Images\Index\crsl\demo\3.jpg" />
     <Content Include="Images\Index\crsl\demo\4.jpg" />
@@ -281,6 +304,48 @@
     <Content Include="Images\Index\intro-bg.JPG" />
     <Content Include="Images\Index\LOGOpulpo.png" />
     <Content Include="Images\Index\MainIMG.JPG" />
+    <Content Include="Images\Items\dress\1.png" />
+    <Content Include="Images\Items\dress\10.png" />
+    <Content Include="Images\Items\dress\11.png" />
+    <Content Include="Images\Items\dress\12.png" />
+    <Content Include="Images\Items\dress\13.png" />
+    <Content Include="Images\Items\dress\14.png" />
+    <Content Include="Images\Items\dress\15.png" />
+    <Content Include="Images\Items\dress\16.png" />
+    <Content Include="Images\Items\dress\17.png" />
+    <Content Include="Images\Items\dress\18.png" />
+    <Content Include="Images\Items\dress\2.png" />
+    <Content Include="Images\Items\dress\3.png" />
+    <Content Include="Images\Items\dress\4.png" />
+    <Content Include="Images\Items\dress\5.png" />
+    <Content Include="Images\Items\dress\6.png" />
+    <Content Include="Images\Items\dress\7.png" />
+    <Content Include="Images\Items\dress\8.png" />
+    <Content Include="Images\Items\dress\9.png" />
+    <Content Include="Images\Items\Pants\1.png" />
+    <Content Include="Images\Items\Pants\10.png" />
+    <Content Include="Images\Items\Pants\11.png" />
+    <Content Include="Images\Items\Pants\12.png" />
+    <Content Include="Images\Items\Pants\2.png" />
+    <Content Include="Images\Items\Pants\3.png" />
+    <Content Include="Images\Items\Pants\4.png" />
+    <Content Include="Images\Items\Pants\5.png" />
+    <Content Include="Images\Items\Pants\6.png" />
+    <Content Include="Images\Items\Pants\7.png" />
+    <Content Include="Images\Items\Pants\8.png" />
+    <Content Include="Images\Items\Pants\9.png" />
+    <Content Include="Images\Items\shirt\1.png" />
+    <Content Include="Images\Items\shirt\10.png" />
+    <Content Include="Images\Items\shirt\11.png" />
+    <Content Include="Images\Items\shirt\12.png" />
+    <Content Include="Images\Items\shirt\2.png" />
+    <Content Include="Images\Items\shirt\3.png" />
+    <Content Include="Images\Items\shirt\4.png" />
+    <Content Include="Images\Items\shirt\5.png" />
+    <Content Include="Images\Items\shirt\6.png" />
+    <Content Include="Images\Items\shirt\7.png" />
+    <Content Include="Images\Items\shirt\8.png" />
+    <Content Include="Images\Items\shirt\9.png" />
     <Content Include="Images\Layout\logo.png" />
     <Content Include="Images\owl-crsl\AjaxLoader.gif" />
     <Content Include="Images\owl-crsl\grabbing.png" />
@@ -424,6 +489,14 @@
     <Content Include="Views\Shops\Details.cshtml" />
     <Content Include="Views\Shops\Edit.cshtml" />
     <Content Include="Views\Shops\Index.cshtml" />
+    <Content Include="Views\Galleries\Pants.cshtml" />
+    <Content Include="Views\Galleries\Shirts.cshtml" />
+    <Content Include="Views\Galleries\Dresses.cshtml" />
+    <Content Include="Views\Galleries\Index.cshtml" />
+    <Content Include="Views\Galleries\Shop.cshtml" />
+    <Content Include="Content\Galleries\Pants.less" />
+    <Content Include="Content\Galleries\dresses.less" />
+    <Content Include="Content\Galleries\shirt.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
