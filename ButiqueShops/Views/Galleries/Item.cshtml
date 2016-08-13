@@ -1,0 +1,75 @@
+﻿@model ButiqueShops.Models.Items
+@{
+    ViewBag.Title = "Item";
+}
+
+<div class="container first">
+    <header class="row">
+        <h2>@Model.Name</h2>
+    </header>
+    <article class="row">
+        <section class="col-sm-5">
+            <img src="@Model.ImagePath" />
+        </section>
+        <section class="col-sm-1"></section>
+        <section class="col-sm-5">
+            <h3 class="text-left">Details</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    @{string likeClass = (ViewBag.likedShop == true) ? "fa fa-heart red" : "fa fa-heart-o";}
+                    <i id="like" class="@likeClass" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Type:</h4>
+                    <p class="list-group-item-text">@Model.ItemTypes.Name</p>
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Quatity:</h4>
+                    <p class="list-group-item-text">@Model.Quantity</p>
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Colors:</h4>
+                    <div class="list-group-item-text">
+                        @foreach(var color in Model.Colors)
+                        {
+                            <div class="colorsquare" style="background-color: @color.Code"></div>
+                        }
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Sizes:</h4>
+                    <div class="list-group-item-text">
+                        @foreach (var size in Model.Sizes)
+                        {
+                            <span style="margin: 3px;">@size.ShortName</span>
+                        }
+                    </div>
+                </li>
+            </ul>
+            @if (Model.Price != null)
+            {
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">Price:</h4>
+                        <p class="list-group-item-text">@Math.Round((double)Model.Price, 2)</p>
+                    </li>
+                </ul>
+            }
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">Shop:</h4>
+                    <p class="list-group-item-text"><a href="/galleries/shop?id=@Model.Shops.Id">@Model.Shops.Name</a></p>
+                </li>
+            </ul>
+        </section>
+    </article>
+    <footer class="row"></footer>
+</div>

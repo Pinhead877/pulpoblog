@@ -1,14 +1,24 @@
-﻿.list-group .list-group-item {
-  border: none;
-  background-color: transparent;
+﻿.list-group {
   border-left: 1px solid white;
   border-radius: 0;
+  margin-bottom: 0;
+}
+.list-group .list-group-item {
+  border: none;
+  background-color: transparent;
 }
 .list-group .list-group-item .list-group-item-heading {
   text-align: left;
 }
 .list-group .list-group-item .list-group-item-text {
   text-align: right;
+}
+.colorsquare {
+  width: 15px;
+  height: 15px;
+  margin: 3px;
+  display: inline-flex;
+  border: 1px solid white;
 }
 body {
   width: 100%;

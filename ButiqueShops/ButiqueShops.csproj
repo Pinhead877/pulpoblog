@@ -173,6 +173,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ColorsController.cs" />
     <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -523,6 +524,7 @@
     <Content Include="Content\Galleries\Pants.less" />
     <Content Include="Content\Galleries\dresses.less" />
     <Content Include="Content\Galleries\shirt.less" />
+    <Content Include="Views\Galleries\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
