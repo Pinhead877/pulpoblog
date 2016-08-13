@@ -43,14 +43,7 @@ namespace ButiqueShops.Controllers
             {
                 var user = await db.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);
                 var shopLiked = shop.UserLikeShop.FirstOrDefault(r => r.UserId == user.Id);
-                if (shopLiked == null || shopLiked.IsActive == false)
-                {
-                    ViewBag.likedShop = false;
-                }
-                else
-                {
-                    ViewBag.likedShop = true;
-                }
+                ViewBag.likedShop = (shopLiked == null || shopLiked.IsActive == false) ? false : true;
             }
             return View(shop);
         }
@@ -65,16 +58,10 @@ namespace ButiqueShops.Controllers
                 .Include(s => s.Colors)
                 .Include(r => r.ItemTypes)
                 .FirstOrDefaultAsync(r => r.Id == id);
-            var user = await db.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);
+            var user = await db.AspNetUsers.Include(r=>r.UserVistedItem).FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);
             var itemLiked = item.UserLikedItem.FirstOrDefault(r => r.UserId == user.Id);
-            if (itemLiked == null || itemLiked.IsActive == false)
-            {
-                ViewBag.likedItem = false;
-            }
-            else
-            {
-                ViewBag.likedItem = true;
-            }
+            ViewBag.likedItem = (itemLiked == null || itemLiked.IsActive == false) ? false : true;
+            user.UserVistedItem.Add(new UserVistedItem { ItemId = id, VisitedOn = DateTime.Now });
             return View(item);
         }
 

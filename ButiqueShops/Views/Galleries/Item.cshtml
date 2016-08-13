@@ -16,7 +16,7 @@
             <h3 class="text-left">Details</h3>
             <ul class="list-group">
                 <li class="list-group-item">
-                    @{string likeClass = (ViewBag.likedShop == true) ? "fa fa-heart red" : "fa fa-heart-o";}
+                    @{string likeClass = (ViewBag.itemLiked == true) ? "fa fa-heart red" : "fa fa-heart-o";}
                     <i id="like" class="@likeClass" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
                 </li>
             </ul>
