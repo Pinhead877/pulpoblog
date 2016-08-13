@@ -29,16 +29,21 @@
                 </li>
                 <li class="list-group-item">
                     <h4 class="list-group-item-heading">Like:</h4>
-                    <p class="list-group-item-text">
-                        @if (ViewBag.likedShop == true)
+                    <span class="list-group-item-text">
+                        @{string likeClass = (ViewBag.likedShop == true) ? "fa fa-heart red" : "fa fa-heart-o";}
+                        <i id="like" class="@likeClass" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
+                        @*@if (ViewBag.likedShop==true)
                         {
                             <i id="like" class="fa fa-heart red" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
                         }
                         else
                         {
                             <i id="like" class="fa fa-heart-o" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
-                        }
-                    </p>
+                            }*@
+                    </span>
+                    <span class="list-group-item-text">num of likes</span>
+                    <span class="list-group-item-text">shop's items</span>
+                    <span class="list-group-item-text">times shop visited</span>
                 </li>
 
             

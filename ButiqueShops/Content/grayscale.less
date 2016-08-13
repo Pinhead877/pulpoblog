@@ -2,11 +2,13 @@
 @import "mixins.less";
 
 .list-group {
+    border-left: 1px solid white;
+    border-radius: 0;
+    margin-bottom: 0;
     .list-group-item {
         border: none;
         background-color: transparent;
-        border-left: 1px solid white;
-        border-radius: 0;
+
         .list-group-item-heading {
             text-align: left;
         }
@@ -15,6 +17,14 @@
             text-align: right;
         }
     }
+}
+
+.colorsquare {
+    width: 15px;
+    height: 15px;
+    margin: 3px;
+    display: inline-flex;
+    border: 1px solid white;
 }
 
 body {
@@ -466,10 +476,11 @@ img::-moz-selection {
     background: transparent;
 }
 
-#like{
+#like {
     cursor: pointer;
 }
-    .red{
-        color: red;
-        font-size: x-large;
-    }
+
+.red {
+    color: red;
+    font-size: x-large;
+}

@@ -71,7 +71,7 @@ namespace ButiqueShops.Controllers
             Shops selectedItem = shopId==null ? null : await db.Shops.Where(shop=>shop.Id==shopId).FirstOrDefaultAsync();
             ViewBag.ShopId = new SelectList(db.Shops, "Id", "Name", selectedItem);
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name"); ;
-            ViewBag.colorsIds = new MultiSelectList(db.Colors, "Id", "Name");
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r=>r.Name), "Id", "Name");
             ViewBag.sizesIds = new MultiSelectList(db.Sizes, "Id", "ShortName"); ;
             return View();
         }

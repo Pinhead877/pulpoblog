@@ -38,18 +38,46 @@ namespace ButiqueShops.Controllers
         public async Task<ActionResult> Shop(int id)
         {
             db = new ButiqueShopsEntities();
-            var shop = await db.Shops.Include(r=>r.UserLikeShop).FirstOrDefaultAsync(s => s.Id==id);
-            var user = await db.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);
-            var shopLiked = shop.UserLikeShop.FirstOrDefault(r => r.UserId == user.Id);
-            if (shopLiked==null || shopLiked.IsActive==false)
+            var shop = await db.Shops.Include(r => r.UserLikeShop).FirstOrDefaultAsync(s => s.Id == id);
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                ViewBag.likedShop = false;
-            }
-            else
-            {
-                ViewBag.likedShop = true;
+                var user = await db.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);
+                var shopLiked = shop.UserLikeShop.FirstOrDefault(r => r.UserId == user.Id);
+                if (shopLiked == null || shopLiked.IsActive == false)
+                {
+                    ViewBag.likedShop = false;
+                }
+                else
+                {
+                    ViewBag.likedShop = true;
+                }
             }
             return View(shop);
         }
+
+        public async Task<ActionResult> Item(int id)
+        {
+            db = new ButiqueShopsEntities();
+            var item = await db.Items
+                .Include(f => f.UserLikedItem)
+                .Include(r => r.Sizes)
+                .Include(r => r.Shops)
+                .Include(s => s.Colors)
+                .Include(r => r.ItemTypes)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            var user = await db.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);
+            var itemLiked = item.UserLikedItem.FirstOrDefault(r => r.UserId == user.Id);
+            if (itemLiked == null || itemLiked.IsActive == false)
+            {
+                ViewBag.likedItem = false;
+            }
+            else
+            {
+                ViewBag.likedItem = true;
+            }
+            return View(item);
+        }
+
+
     }
 }
