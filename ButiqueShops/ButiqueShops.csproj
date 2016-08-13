@@ -267,6 +267,12 @@
     <Content Include="Content\Galleries\dresses.min.css">
       <DependentUpon>dresses.css</DependentUpon>
     </Content>
+    <Content Include="Content\Galleries\gallerystyle.css">
+      <DependentUpon>gallerystyle.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Galleries\gallerystyle.min.css">
+      <DependentUpon>gallerystyle.css</DependentUpon>
+    </Content>
     <Content Include="Content\Galleries\Pants.css">
       <DependentUpon>Pants.less</DependentUpon>
     </Content>
@@ -525,6 +531,7 @@
     <Content Include="Content\Galleries\dresses.less" />
     <Content Include="Content\Galleries\shirt.less" />
     <Content Include="Views\Galleries\Item.cshtml" />
+    <Content Include="Content\Galleries\gallerystyle.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

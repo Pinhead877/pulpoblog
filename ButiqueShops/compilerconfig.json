@@ -18,5 +18,9 @@
   {
     "outputFile": "Content/Galleries/dresses.css",
     "inputFile": "Content/Galleries/dresses.less"
+  },
+  {
+    "outputFile": "Content/Galleries/gallerystyle.css",
+    "inputFile": "Content/Galleries/gallerystyle.less"
   }
 ]
