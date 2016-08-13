@@ -20,6 +20,7 @@ namespace ButiqueShops.ViewModels
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string ImagePath { get; set; }
+        public string SmallImagePath { get; set; }
         public Nullable<int> ShopId { get; set; }
         public System.DateTime DateAdded { get; set; }
         public int [] sizesIds { get; set; }

@@ -86,6 +86,7 @@
           <Property Name="Price" Type="float" />
           <Property Name="Quantity" Type="int" />
           <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SmallImagePath" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ShopId" Type="int" />
           <Property Name="DateAdded" Type="date" Nullable="false" />
         </EntityType>
@@ -861,6 +862,7 @@
           <Property Name="Price" Type="Double" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SmallImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ShopId" Type="Int32" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ItemTypes" Relationship="ButiqueShopsModel.ItemTypeCons" FromRole="Items" ToRole="ItemTypes" />
@@ -1078,6 +1080,7 @@
               <MappingFragment StoreEntitySet="Items">
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="SmallImagePath" ColumnName="SmallImagePath" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
