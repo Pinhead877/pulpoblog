@@ -6,6 +6,10 @@
 <div class="container first">
     <header class="row"><h2 class="text-center">@Model.Name</h2></header>
     <section class="row">
+        <article class="col-sm-6">
+            <img src="@Model.LogoPath" class="img-responsive img-thumbnail" />
+        </article>
+        <article class="col-sm-1"></article>
         <article class="col-sm-5" style="padding-right:10px;">
             <h3 class="text-left">Details</h3>
             <ul class="list-group">
@@ -26,7 +30,7 @@
                 <li class="list-group-item">
                     <h4 class="list-group-item-heading">Like:</h4>
                     <p class="list-group-item-text">
-                        @if (ViewBag.likedShop==true)
+                        @if (ViewBag.likedShop == true)
                         {
                             <i id="like" class="fa fa-heart red" aria-hidden="true" onclick="likeStore(@Model.Id)"></i>
                         }
@@ -36,11 +40,15 @@
                         }
                     </p>
                 </li>
+
+            
+                    <h4 class="remember">shop item</h4>
+                    <h4 class="remember">number of likes</h4>
+                    <h4 class="remember">number of visits</h4>
+                  
+              
+
             </ul>
-        </article>
-        <article class="col-sm-2"></article>
-        <article class="col-sm-5">
-            <img src="@Model.LogoPath" class="img-responsive img-thumbnail" />
         </article>
     </section>
     <footer class="row">
