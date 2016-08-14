@@ -21,13 +21,13 @@
         <AssociationConnector Association="ButiqueShopsModel.UserShopLiked" />
         <AssociationConnector Association="ButiqueShopsModel.UserShopVisited" />
         <AssociationConnector Association="ButiqueShopsModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.Sizes" Width="1.5" PointX="12.25" PointY="3" />
         <EntityTypeShape EntityType="ButiqueShopsModel.Shops" Width="1.5" PointX="8" PointY="5.875" />
         <AssociationConnector Association="ButiqueShopsModel.ShopOwnerCons" />
         <AssociationConnector Association="ButiqueShopsModel.ShopUserLiked" />
         <AssociationConnector Association="ButiqueShopsModel.ShopUserVisited" />
         <EntityTypeShape EntityType="ButiqueShopsModel.Colors" Width="1.5" PointX="10.25" PointY="7.375" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.Items" Width="1.5" PointX="10.25" PointY="3" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.Items" Width="1.5" PointX="10.25" PointY="2.875" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.Sizes" Width="1.5" PointX="12.25" PointY="3" />
         <AssociationConnector Association="ButiqueShopsModel.ItemTypeCons" />
         <AssociationConnector Association="ButiqueShopsModel.ItemUserLiked" />
         <AssociationConnector Association="ButiqueShopsModel.ItemUserVisited" />

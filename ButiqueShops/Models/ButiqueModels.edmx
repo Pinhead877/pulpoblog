@@ -546,7 +546,6 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Sizes" EntityType="ButiqueShopsModel.Sizes" />
           <EntitySet Name="Shops" EntityType="ButiqueShopsModel.Shops" />
           <AssociationSet Name="ShopOwnerCons" Association="ButiqueShopsModel.ShopOwnerCons">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -562,6 +561,7 @@
           </AssociationSet>
           <EntitySet Name="Colors" EntityType="ButiqueShopsModel.Colors" />
           <EntitySet Name="Items" EntityType="ButiqueShopsModel.Items" />
+          <EntitySet Name="Sizes" EntityType="ButiqueShopsModel.Sizes" />
           <AssociationSet Name="ItemTypeCons" Association="ButiqueShopsModel.ItemTypeCons">
             <End Role="ItemTypes" EntitySet="ItemTypes" />
             <End Role="Items" EntitySet="Items" />
@@ -779,15 +779,6 @@
           <End Type="ButiqueShopsModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="ButiqueShopsModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityType Name="Sizes">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShortName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemSizes" FromRole="Sizes" ToRole="Items" />
-        </EntityType>
         <EntityType Name="Shops">
           <Key>
             <PropertyRef Name="Id" />
@@ -871,6 +862,15 @@
           <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Items" ToRole="Shops" />
           <NavigationProperty Name="Colors" Relationship="ButiqueShopsModel.ItemColors" FromRole="Items" ToRole="Colors" />
           <NavigationProperty Name="Sizes" Relationship="ButiqueShopsModel.ItemSizes" FromRole="Items" ToRole="Sizes" />
+        </EntityType>
+        <EntityType Name="Sizes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemSizes" FromRole="Sizes" ToRole="Items" />
         </EntityType>
         <Association Name="ItemTypeCons">
           <End Type="ButiqueShopsModel.ItemTypes" Role="ItemTypes" Multiplicity="1" />
@@ -1041,15 +1041,6 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Sizes">
-            <EntityTypeMapping TypeName="ButiqueShopsModel.Sizes">
-              <MappingFragment StoreEntitySet="Sizes">
-                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Shops">
             <EntityTypeMapping TypeName="ButiqueShopsModel.Shops">
               <MappingFragment StoreEntitySet="Shops">
@@ -1086,6 +1077,15 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sizes">
+            <EntityTypeMapping TypeName="ButiqueShopsModel.Sizes">
+              <MappingFragment StoreEntitySet="Sizes">
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

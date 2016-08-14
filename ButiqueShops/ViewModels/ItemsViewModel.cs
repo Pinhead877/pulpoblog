@@ -17,7 +17,7 @@ namespace ButiqueShops.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public int TypeId { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public Nullable<double> Price { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string ImagePath { get; set; }
         public string SmallImagePath { get; set; }
@@ -32,5 +32,12 @@ namespace ButiqueShops.ViewModels
         public virtual IEnumerable<UserVistedItem> UserVistedItem { get; set; }
         public virtual Shops Shops { get; set; }
         public virtual List<Sizes> Sizes { get; set; }
+    }
+
+    public class ItemSpecification
+    {
+        public int? shopid { get; set; }
+        public int? [] colorids { get; set; }
+        public int? [] sizeids { get; set; }
     }
 }

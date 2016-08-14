@@ -104,7 +104,7 @@ namespace ButiqueShops.Controllers
 
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name", items.TypeId);
             ViewBag.ShopId = new SelectList(db.Shops, "Id", "Name", items.ShopId);
-            ViewBag.colorsIds = new MultiSelectList(colorsFromDB, "Id", "Name", items.Colors.Select(r => r.Id).ToArray());
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name", items.Colors.Select(r => r.Id).ToArray());
             ViewBag.sizesIds = new MultiSelectList(sizesFromDB, "Id", "ShortName", items.Sizes.Select(r => r.Id).ToArray());
             return View(items);
         }
@@ -124,7 +124,7 @@ namespace ButiqueShops.Controllers
             var itemsViewModel = Mapper.Map<ItemsViewModel>(items);
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name", itemsViewModel.TypeId);
             ViewBag.ShopId = new SelectList(db.Shops, "Id", "Name", itemsViewModel.ShopId);
-            ViewBag.colorsIds = new MultiSelectList(db.Colors, "Id", "Name", items.Colors.Select(r => r.Id).ToArray());
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name", items.Colors.Select(r => r.Id).ToArray());
             ViewBag.sizesIds = new MultiSelectList(db.Sizes, "Id", "ShortName", items.Sizes.Select(r => r.Id).ToArray());
             return View(itemsViewModel);
         }
@@ -137,27 +137,46 @@ namespace ButiqueShops.Controllers
             var sizesFromDB = db.Sizes.ToList();
             var colorsFromDB = db.Colors.ToList();
 
-            foreach (var size in items.sizesIds)
+            if (items.sizesIds != null)
             {
-                items.Sizes = (items.Sizes == null) ? new List<Sizes>() : items.Sizes;
-                items.Sizes.Add(sizesFromDB.FirstOrDefault(s => s.Id == size));
+                foreach (int size in items.sizesIds)
+                {
+                    items.Sizes = (items.Sizes == null) ? new List<Sizes>() : items.Sizes;
+                    items.Sizes.Add(sizesFromDB.FirstOrDefault(s => s.Id == size));
+                }
             }
-            foreach (var color in items.colorsIds)
+            if (items.colorsIds != null)
             {
-                items.Colors = items.Colors == null ? new List<Colors>() : items.Colors;
-                items.Colors.Add(colorsFromDB.FirstOrDefault(s => s.Id == color));
+                foreach (int color in items.colorsIds)
+                {
+                    items.Colors = items.Colors == null ? new List<Colors>() : items.Colors;
+                    items.Colors.Add(colorsFromDB.FirstOrDefault(s => s.Id == color));
+                }
             }
             if (IsItemValidated(items))
             {
                 var itemsModel = Mapper.Map<Items>(items);
-                db.Entry(itemsModel).State = EntityState.Modified;
+                var itemdb = await db.Items.FirstOrDefaultAsync(o => o.Id == items.Id);
+                db.Entry(itemdb).Collection(c => c.Colors).Load();
+                db.Entry(itemdb).Collection(c => c.Sizes).Load();
+                itemdb.ImagePath = itemsModel.ImagePath;
+                itemdb.TypeId = items.TypeId;
+                itemdb.Name = items.Name;
+                itemdb.Price = itemsModel.Price;
+                itemdb.Quantity = items.Quantity;
+                itemdb.ShopId = items.ShopId;
+                itemdb.SmallImagePath = items.SmallImagePath;
+                itemdb.Colors = new List<Colors>();
+                itemdb.Sizes = new List<Sizes>();
+                itemdb.Colors = items.Colors;
+                itemdb.Sizes = items.Sizes;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name", items.TypeId);
             ViewBag.ShopId = new SelectList(db.Shops, "Id", "Name", items.ShopId);
-            ViewBag.Colors = new MultiSelectList(colorsFromDB, "Id", "Name", items.Colors.Select(r => r.Id).ToArray());
+            ViewBag.Colors = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name", items.Colors.Select(r => r.Id).ToArray());
             ViewBag.Sizes = new MultiSelectList(sizesFromDB, "Id", "ShortName", items.Sizes);
             return View(items);
         }

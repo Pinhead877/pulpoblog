@@ -429,6 +429,7 @@
     <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Galleries\item.js" />
     <Content Include="Scripts\Galleries\shop.js" />
     <Content Include="Scripts\GMaps\gmaps.js" />
     <Content Include="Scripts\GMaps\gmaps.min.js" />
