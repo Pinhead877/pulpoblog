@@ -332,6 +332,7 @@
     <Content Include="Images\Items\dress\18.png" />
     <Content Include="Images\Items\dress\2.png" />
     <Content Include="Images\Items\dress\3.png" />
+    <Content Include="Images\Items\dress\3b.jpg" />
     <Content Include="Images\Items\dress\4.png" />
     <Content Include="Images\Items\dress\5.png" />
     <Content Include="Images\Items\dress\6.png" />
@@ -366,6 +367,9 @@
     <Content Include="Images\owl-crsl\AjaxLoader.gif" />
     <Content Include="Images\owl-crsl\grabbing.png" />
     <Content Include="Images\Shops\logo-1.jpg" />
+    <Content Include="Images\Shops\logosoh.jpg" />
+    <Content Include="Images\Shops\logoyama.jpg" />
+    <Content Include="Images\Shops\metro1.jpg" />
     <Content Include="Images\Shops\store-1.jpg" />
     <Content Include="Models\ButiqueModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
