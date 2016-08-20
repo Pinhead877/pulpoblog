@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ButiqueShops.Models;
 using ButiqueShops.Extensions;
+using System.IO;
 
 namespace ButiqueShops.Controllers
 {
@@ -52,6 +53,14 @@ namespace ButiqueShops.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Shops shops)
         {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files["fileLogo"];
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                file.SaveAs(path);
+                shops.LogoPath = "/Images/" + fileName;
+            }
             if (ModelState.IsValid)
             {
                 shops.DateAdded = DateTime.Now;
@@ -85,6 +94,14 @@ namespace ButiqueShops.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Shops shops)
         {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files["fileLogo"];
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                file.SaveAs(path);
+                shops.LogoPath = "/Images/" + fileName;
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(shops).State = EntityState.Modified;

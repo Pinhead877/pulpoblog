@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using ButiqueShops.Models;
 using ButiqueShops.ViewModels;
 using AutoMapper;
+using System.IO;
 
 namespace ButiqueShops.Controllers
 {
@@ -43,7 +44,7 @@ namespace ButiqueShops.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Items items = await db.Items.Include(r=>r.Sizes).Where(s=>s.Id==id).FirstOrDefaultAsync();
+            Items items = await db.Items.Include(r => r.Sizes).Where(s => s.Id == id).FirstOrDefaultAsync();
             if (items == null)
             {
                 return HttpNotFound();
@@ -58,7 +59,7 @@ namespace ButiqueShops.Controllers
         public async Task<ActionResult> Create(int? shopId)
         {
             var shops = db.Shops.ToList();
-            if(shops.Count==0)
+            if (shops.Count == 0)
             {
                 ViewBag.ErrorTitle = "No Shops";
                 ViewBag.ErrorMessage = "Please add shops to the system.";
@@ -68,10 +69,10 @@ namespace ButiqueShops.Controllers
             {
                 ViewBag.ReturnUrl = true;
             }
-            Shops selectedItem = shopId==null ? null : await db.Shops.Where(shop=>shop.Id==shopId).FirstOrDefaultAsync();
+            Shops selectedItem = shopId == null ? null : await db.Shops.Where(shop => shop.Id == shopId).FirstOrDefaultAsync();
             ViewBag.ShopId = new SelectList(db.Shops, "Id", "Name", selectedItem);
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name"); ;
-            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r=>r.Name), "Id", "Name");
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name");
             ViewBag.sizesIds = new MultiSelectList(db.Sizes, "Id", "ShortName"); ;
             return View();
         }
@@ -81,12 +82,25 @@ namespace ButiqueShops.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ItemsViewModel items)
         {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files["fileBig"];
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                file.SaveAs(path);
+                items.ImagePath = "/Images/"+ fileName;
+                file = Request.Files["fileSmall"];
+                fileName = Path.GetFileName(file.FileName);
+                path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                file.SaveAs(path);
+                items.SmallImagePath = "/Images/" + fileName;
+            }
             var sizesFromDB = db.Sizes.ToList();
             var colorsFromDB = db.Colors.ToList();
 
-            foreach(var size in items.sizesIds)
+            foreach (var size in items.sizesIds)
             {
-                items.Sizes = (items.Sizes==null)? new List<Sizes>():items.Sizes;
+                items.Sizes = (items.Sizes == null) ? new List<Sizes>() : items.Sizes;
                 items.Sizes.Add(sizesFromDB.FirstOrDefault(s => s.Id == size));
             }
             foreach (var color in items.colorsIds)
@@ -116,7 +130,7 @@ namespace ButiqueShops.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Items items = await db.Items.Include(r=>r.Sizes).Where(s=>s.Id == id).FirstOrDefaultAsync();
+            Items items = await db.Items.Include(r => r.Sizes).Where(s => s.Id == id).FirstOrDefaultAsync();
             if (items == null)
             {
                 return HttpNotFound();
@@ -134,6 +148,19 @@ namespace ButiqueShops.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ItemsViewModel items)
         {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files["fileBig"];
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                file.SaveAs(path);
+                items.ImagePath = "/Images/" + fileName;
+                file = Request.Files["fileSmall"];
+                fileName = Path.GetFileName(file.FileName);
+                path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                file.SaveAs(path);
+                items.SmallImagePath = "/Images/" + fileName;
+            }
             var sizesFromDB = db.Sizes.ToList();
             var colorsFromDB = db.Colors.ToList();
 

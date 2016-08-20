@@ -19,12 +19,12 @@ namespace ButiqueShops.Models
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
+            this.Shops = new HashSet<Shops>();
             this.UserLikedItem = new HashSet<UserLikedItem>();
             this.UserVistedItem = new HashSet<UserVistedItem>();
             this.UserLikeShop = new HashSet<UserLikeShop>();
             this.UserVisitedShop = new HashSet<UserVisitedShop>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.Shops = new HashSet<Shops>();
         }
     
         public string Id { get; set; }
@@ -49,6 +49,8 @@ namespace ButiqueShops.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Shops> Shops { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLikedItem> UserLikedItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVistedItem> UserVistedItem { get; set; }
@@ -58,7 +60,5 @@ namespace ButiqueShops.Models
         public virtual ICollection<UserVisitedShop> UserVisitedShop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shops> Shops { get; set; }
     }
 }

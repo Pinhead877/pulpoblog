@@ -7,7 +7,7 @@
 
     <h2>Create a Shop</h2>
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Create", "Shops", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -57,7 +57,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.LogoPath, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.LogoPath, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.EditorFor(model => model.LogoPath, new { htmlAttributes = new { @class = "form-control" } })*@
+                    <input type="file" name="fileLogo" id="fileLogo" accept="image/*" class="form-control text-box single-line" />
                     @Html.ValidationMessageFor(model => model.LogoPath, "", new { @class = "text-danger" })
                 </div>
             </div>

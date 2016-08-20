@@ -5,36 +5,36 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f17535a7b1904bacb82f0e36d114f558" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetUserClaims" Width="1.5" PointX="1.5" PointY="3" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetUserLogins" Width="1.5" PointX="1.5" PointY="7.375" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.ItemTypes" Width="1.5" PointX="12.25" PointY="5.25" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.UserLikedItem" Width="1.5" PointX="5.75" PointY="1.75" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.UserLikeShop" Width="1.5" PointX="5.75" PointY="4.875" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.UserVisitedShop" Width="1.5" PointX="5.75" PointY="7.875" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.UserVistedItem" Width="1.5" PointX="8" PointY="3.375" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetRoles" Width="1.5" PointX="1.5" PointY="5.375" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetUsers" Width="1.5" PointX="3.625" PointY="3.5" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="10.5" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="13.875" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.AspNetUsers" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.Colors" Width="1.5" PointX="8.25" PointY="13.5" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.Items" Width="1.5" PointX="10.5" PointY="9.25" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.ItemTypes" Width="1.5" PointX="8.25" PointY="4.125" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.Shops" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.Sizes" Width="1.5" PointX="12.75" PointY="16.375" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.UserLikedItem" Width="1.5" PointX="12.75" PointY="7.125" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.UserLikeShop" Width="1.5" PointX="7.5" PointY="10.125" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.UserVisitedShop" Width="1.5" PointX="7.5" PointY="7.25" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.UserVistedItem" Width="1.5" PointX="12.75" PointY="10.25" />
         <AssociationConnector Association="ButiqueShopsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ButiqueShopsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="ButiqueShopsModel.ShopOwnerCons" />
         <AssociationConnector Association="ButiqueShopsModel.UserItemLiked" />
         <AssociationConnector Association="ButiqueShopsModel.UserItemVisited" />
         <AssociationConnector Association="ButiqueShopsModel.UserShopLiked" />
         <AssociationConnector Association="ButiqueShopsModel.UserShopVisited" />
-        <AssociationConnector Association="ButiqueShopsModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.Shops" Width="1.5" PointX="8" PointY="5.875" />
-        <AssociationConnector Association="ButiqueShopsModel.ShopOwnerCons" />
-        <AssociationConnector Association="ButiqueShopsModel.ShopUserLiked" />
-        <AssociationConnector Association="ButiqueShopsModel.ShopUserVisited" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.Colors" Width="1.5" PointX="10.25" PointY="7.375" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.Items" Width="1.5" PointX="10.25" PointY="2.875" />
-        <EntityTypeShape EntityType="ButiqueShopsModel.Sizes" Width="1.5" PointX="12.25" PointY="3" />
         <AssociationConnector Association="ButiqueShopsModel.ItemTypeCons" />
         <AssociationConnector Association="ButiqueShopsModel.ItemUserLiked" />
         <AssociationConnector Association="ButiqueShopsModel.ItemUserVisited" />
         <AssociationConnector Association="ButiqueShopsModel.ShopsCons" />
+        <AssociationConnector Association="ButiqueShopsModel.ShopUserLiked" />
+        <AssociationConnector Association="ButiqueShopsModel.ShopUserVisited" />
+        <AssociationConnector Association="ButiqueShopsModel.AspNetUserRoles" />
         <AssociationConnector Association="ButiqueShopsModel.ItemColors" />
         <AssociationConnector Association="ButiqueShopsModel.ItemSizes" />
-        </Diagram>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
