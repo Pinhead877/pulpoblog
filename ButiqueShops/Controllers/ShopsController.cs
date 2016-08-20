@@ -13,13 +13,13 @@ using System.IO;
 
 namespace ButiqueShops.Controllers
 {
-    [AuthorizeRoles(Roles = "Administrator")]
     public class ShopsController : Controller
     {
 
         private ButiqueShopsEntities db = new ButiqueShopsEntities();
 
         // GET: Shops
+        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Index()
         {
             var shops = db.Shops.Include(s => s.AspNetUsers);
@@ -27,6 +27,7 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops/Details/5
+        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,6 +43,7 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops/Create
+        [AuthorizeRoles(Roles = "Administrator")]
         public ActionResult Create()
         {
             ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName");
@@ -51,12 +53,13 @@ namespace ButiqueShops.Controllers
         // POST: Shops/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Create(Shops shops)
         {
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files["fileLogo"];
-                var fileName = Path.GetFileName(file.FileName);
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
                 file.SaveAs(path);
                 shops.LogoPath = "/Images/" + fileName;
@@ -74,16 +77,21 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops/Edit/5
+        [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Shops shops = await db.Shops.FindAsync(id);
+            Shops shops = await db.Shops.Include(u => u.AspNetUsers).FirstOrDefaultAsync(u => u.Id == id);
             if (shops == null)
             {
                 return HttpNotFound();
+            }
+            else if (!User.IsInRole("Administrator") && shops.AspNetUsers.UserName != User.Identity.Name)
+            {
+                return View("Unauthorized");
             }
             ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName", shops.OwnerId);
             return View(shops);
@@ -92,27 +100,39 @@ namespace ButiqueShops.Controllers
         // POST: Shops/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
         public async Task<ActionResult> Edit(Shops shops)
         {
             if (Request.Files.Count > 0)
             {
-                var file = Request.Files["fileLogo"];
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                file.SaveAs(path);
-                shops.LogoPath = "/Images/" + fileName;
+                if (Request.Files["fileLogo"].ContentLength > 0)
+                {
+                    var file = Request.Files["fileLogo"];
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    file.SaveAs(path);
+                    shops.LogoPath = "/Images/" + fileName;
+                }
             }
             if (ModelState.IsValid)
             {
                 db.Entry(shops).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (User.IsInRole("Administrator"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("UserProfile", "Account");
+                }
             }
             ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName", shops.OwnerId);
             return View(shops);
         }
 
         // GET: Shops/Delete/5
+        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,7 +143,8 @@ namespace ButiqueShops.Controllers
             if (shops == null)
             {
                 return HttpNotFound();
-            }else if (shops.Items.Count > 0)
+            }
+            else if (shops.Items.Count > 0)
             {
                 ViewBag.ErrorTitle = "Can't Delete";
                 ViewBag.ErrorMessage = "The system cannot delete a shop that has items. Please delete the items first and try again.";
@@ -135,6 +156,7 @@ namespace ButiqueShops.Controllers
         // POST: Shops/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Shops shops = await db.Shops.FindAsync(id);

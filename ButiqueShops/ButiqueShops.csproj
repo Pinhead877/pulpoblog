@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ColorsController.cs" />
     <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\ItemsToSubmitsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
@@ -194,6 +195,9 @@
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Colors.cs">
+      <DependentUpon>ButiqueModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemsToSubmit.cs">
       <DependentUpon>ButiqueModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sizes.cs">
@@ -537,6 +541,12 @@
     <Content Include="Content\Galleries\shirt.less" />
     <Content Include="Views\Galleries\Item.cshtml" />
     <Content Include="Content\Galleries\gallerystyle.less" />
+    <Content Include="Views\UserRoles\Edit.cshtml" />
+    <Content Include="Views\ItemsToSubmit\Create.cshtml" />
+    <Content Include="Views\ItemsToSubmit\Delete.cshtml" />
+    <Content Include="Views\ItemsToSubmit\Details.cshtml" />
+    <Content Include="Views\ItemsToSubmit\Edit.cshtml" />
+    <Content Include="Views\ItemsToSubmit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

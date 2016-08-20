@@ -41,7 +41,7 @@ namespace ButiqueShops.Controllers
                 respond = true;
                 db.Entry(user).State = EntityState.Modified;
             }
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
             return Json(respond, JsonRequestBehavior.AllowGet);
         }
 

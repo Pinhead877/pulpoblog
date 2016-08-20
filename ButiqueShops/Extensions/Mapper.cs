@@ -28,6 +28,8 @@ namespace ButiqueShops
 
                 mapper.CreateMap<Items, ItemsViewModel>();
                 mapper.CreateMap<ItemsViewModel, Items>();
+
+                mapper.CreateMap<ItemsToSubmit, Items>().ForMember(dest=>dest.DateAdded, opt => opt.UseValue(DateTime.Now));
             });
             
         }

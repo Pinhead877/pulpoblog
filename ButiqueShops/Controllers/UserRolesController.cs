@@ -64,6 +64,7 @@ namespace ButiqueShops.Controllers
                 {
                     var user = await db.AspNetUsers.Where(u => u.Id == userRole.UserId).FirstOrDefaultAsync();
                     var role = await db.AspNetRoles.Where(r => r.Id == userRole.RoleId).FirstOrDefaultAsync();
+                    user.AspNetRoles.Clear();
                     user.AspNetRoles.Add(role);
                     db.AspNetUsers.Attach(user);
                     db.Entry(user).State = EntityState.Modified;
@@ -81,24 +82,38 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: UserRoles/Edit/5
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
+            var user = await db.AspNetUsers.Include(u => u.AspNetRoles).FirstOrDefaultAsync(u => u.Id == id);
+            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "UserName", user.Id);
+            ViewBag.RoleId = new SelectList(db.AspNetRoles, "Id", "Name", user.AspNetRoles.ToList()[0].Id);
             return View();
         }
 
         // POST: UserRoles/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id, FormCollection collection)
+        public async Task<ActionResult> Edit(UserRolesViewModel userRole)
         {
             try
             {
-                // TODO: Add update logic here
-
+                if (ModelState.IsValid)
+                {
+                    var user = await db.AspNetUsers.Where(u => u.Id == userRole.UserId).FirstOrDefaultAsync();
+                    var role = await db.AspNetRoles.Where(r => r.Id == userRole.RoleId).FirstOrDefaultAsync();
+                    user.AspNetRoles.Clear();
+                    user.AspNetRoles.Add(role);
+                    db.AspNetUsers.Attach(user);
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.ErrorTitle = "Error";
+                ViewBag.ErrorMessage = e.Message;
+                return View("Error");
             }
         }
 

@@ -2,16 +2,28 @@
     <header>
         <h2>Profile Screen</h2>
     </header>
-    <section class="row">
-        <div class="col-md-3"><a href="/Shops/index">Shops List</a></div>
-        <div class="col-md-3"><a href="/Items/Index">Items List</a></div>
-        <div class="col-md-3"><a href="/Roles/index">Roles List</a></div>
-        <div class="col-md-3"><a href="/UserRoles/Index">User Roles List</a></div>
-    </section>
-    <section class="row">
-        <div class="col-md-3"><a href="/Colors/index">Colors List</a></div>
-        <div class="col-md-3"><a href="/Sizes/Index">Sizes List</a></div>
-        <div class="col-md-3"></div>
-        <div class="col-md-3"></div>
-    </section>
+    @if (User.IsInRole("Administrator"))
+    {
+        <section class="row">
+            <div class="col-md-3"><a href="/Shops/index">Shops List</a></div>
+            <div class="col-md-3"><a href="/Items/Index">Items List</a></div>
+            <div class="col-md-3"><a href="/Roles/index">Roles List</a></div>
+            <div class="col-md-3"><a href="/UserRoles/Index">User Roles List</a></div>
+        </section>
+        <section class="row">
+            <div class="col-md-3"><a href="/Colors/index">Colors List</a></div>
+            <div class="col-md-3"><a href="/Sizes/Index">Sizes List</a></div>
+            <div class="col-md-3"><a href="/ItemsToSubmit/Index">Items To Submit</a></div>
+            <div class="col-md-3"></div>
+        </section>
+    }
+    else if (User.IsInRole("Shop Owner"))
+    {
+        <section class="row">
+            <div class="col-md-3"><a href="~/Galleries/shops">Shops List</a></div>
+            <div class="col-md-3"><a href="/ItemsToSubmit/Index">Items To Submit</a></div>
+            <div class="col-md-3"><a href="">Shops Items</a></div>
+            <div class="col-md-3"><a href=""></a></div>
+        </section>
+    }
 </div>

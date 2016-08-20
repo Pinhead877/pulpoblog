@@ -34,6 +34,17 @@
         <AssociationConnector Association="ButiqueShopsModel.AspNetUserRoles" />
         <AssociationConnector Association="ButiqueShopsModel.ItemColors" />
         <AssociationConnector Association="ButiqueShopsModel.ItemSizes" />
+        <EntityTypeShape EntityType="ButiqueShopsModel.ItemsToSubmit" Width="1.5" PointX="3" PointY="3.375" />
+        <AssociationConnector Association="ButiqueShopsModel.ItemsToSubmitShopsCons" ManuallyRouted="true" >
+          <ConnectorPoint PointX="5.2511528461538459" PointY="9.375" />
+          <ConnectorPoint PointX="4.875" PointY="8.9988471538461532" />
+          <ConnectorPoint PointX="5.1554877124660274" PointY="8.9988471538461532" />
+          <ConnectorPoint PointX="5.1554877124660274" PointY="5.9678479868586072" />
+          <ConnectorPoint PointX="4.716310945113789" PointY="5.9678479868586072" />
+          <ConnectorPoint PointX="4.716310945113789" PointY="4.8458968098958319" />
+          <ConnectorPoint PointX="4.5" PointY="4.8458968098958319" />
+        </AssociationConnector>
+        <AssociationConnector Association="ButiqueShopsModel.ItemsToSubmitTypeCons" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

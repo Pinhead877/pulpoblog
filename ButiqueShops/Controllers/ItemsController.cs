@@ -11,9 +11,11 @@ using ButiqueShops.Models;
 using ButiqueShops.ViewModels;
 using AutoMapper;
 using System.IO;
+using ButiqueShops.Extensions;
 
 namespace ButiqueShops.Controllers
 {
+    [AuthorizeRoles(Roles = "Administrator")]
     public class ItemsController : Controller
     {
         private ButiqueShopsEntities db;
@@ -84,16 +86,22 @@ namespace ButiqueShops.Controllers
         {
             if (Request.Files.Count > 0)
             {
-                var file = Request.Files["fileBig"];
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                file.SaveAs(path);
-                items.ImagePath = "/Images/"+ fileName;
-                file = Request.Files["fileSmall"];
-                fileName = Path.GetFileName(file.FileName);
-                path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                file.SaveAs(path);
-                items.SmallImagePath = "/Images/" + fileName;
+                if (Request.Files["fileBig"].ContentLength > 0)
+                {
+                    var file = Request.Files["fileBig"];
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    file.SaveAs(path);
+                    items.ImagePath = "/Images/" + fileName;
+                }
+                if (Request.Files["fileSmall"].ContentLength > 0)
+                {
+                    var file = Request.Files["fileSmall"];
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    file.SaveAs(path);
+                    items.SmallImagePath = "/Images/" + fileName;
+                }
             }
             var sizesFromDB = db.Sizes.ToList();
             var colorsFromDB = db.Colors.ToList();
@@ -150,16 +158,22 @@ namespace ButiqueShops.Controllers
         {
             if (Request.Files.Count > 0)
             {
-                var file = Request.Files["fileBig"];
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                file.SaveAs(path);
-                items.ImagePath = "/Images/" + fileName;
-                file = Request.Files["fileSmall"];
-                fileName = Path.GetFileName(file.FileName);
-                path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                file.SaveAs(path);
-                items.SmallImagePath = "/Images/" + fileName;
+                if (Request.Files["fileBig"].ContentLength > 0)
+                {
+                    var file = Request.Files["fileBig"];
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    file.SaveAs(path);
+                    items.ImagePath = "/Images/" + fileName;
+                }
+                if (Request.Files["fileSmall"].ContentLength > 0)
+                {
+                    var file = Request.Files["fileSmall"];
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    file.SaveAs(path);
+                    items.SmallImagePath = "/Images/" + fileName;
+                }
             }
             var sizesFromDB = db.Sizes.ToList();
             var colorsFromDB = db.Colors.ToList();

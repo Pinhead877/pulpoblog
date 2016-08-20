@@ -98,6 +98,19 @@
           <Property Name="ItemId" Type="int" Nullable="false" />
           <Property Name="SizeId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ItemsToSubmit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SmallImagePath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ShopId" Type="int" />
+        </EntityType>
         <EntityType Name="ItemTypes">
           <Key>
             <PropertyRef Name="Id" />
@@ -278,6 +291,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ItemsToSubmitShopsCons">
+          <End Role="Shops" Type="Self.Shops" Multiplicity="0..1" />
+          <End Role="ItemsToSubmit" Type="Self.ItemsToSubmit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemsToSubmit">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ItemsToSubmitTypeCons">
+          <End Role="ItemTypes" Type="Self.ItemTypes" Multiplicity="1" />
+          <End Role="ItemsToSubmit" Type="Self.ItemsToSubmit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemsToSubmit">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="ItemTypeCons">
           <End Role="ItemTypes" Type="Self.ItemTypes" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
@@ -424,6 +461,7 @@
           <EntitySet Name="ItemColors" EntityType="Self.ItemColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemSizes" EntityType="Self.ItemSizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemsToSubmit" EntityType="Self.ItemsToSubmit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemTypes" EntityType="Self.ItemTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shops" EntityType="Self.Shops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sizes" EntityType="Self.Sizes" Schema="dbo" store:Type="Tables" />
@@ -462,6 +500,14 @@
           <AssociationSet Name="FK_ItemColors_Items" Association="Self.FK_ItemColors_Items">
             <End Role="Items" EntitySet="Items" />
             <End Role="ItemColors" EntitySet="ItemColors" />
+          </AssociationSet>
+          <AssociationSet Name="ItemsToSubmitShopsCons" Association="Self.ItemsToSubmitShopsCons">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="ItemsToSubmit" EntitySet="ItemsToSubmit" />
+          </AssociationSet>
+          <AssociationSet Name="ItemsToSubmitTypeCons" Association="Self.ItemsToSubmitTypeCons">
+            <End Role="ItemTypes" EntitySet="ItemTypes" />
+            <End Role="ItemsToSubmit" EntitySet="ItemsToSubmit" />
           </AssociationSet>
           <AssociationSet Name="ItemTypeCons" Association="Self.ItemTypeCons">
             <End Role="ItemTypes" EntitySet="ItemTypes" />
@@ -590,6 +636,15 @@
             <End Role="Items" EntitySet="Items" />
             <End Role="Sizes" EntitySet="Sizes" />
           </AssociationSet>
+          <EntitySet Name="ItemsToSubmit" EntityType="ButiqueShopsModel.ItemsToSubmit" />
+          <AssociationSet Name="ItemsToSubmitShopsCons" Association="ButiqueShopsModel.ItemsToSubmitShopsCons">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="ItemsToSubmit" EntitySet="ItemsToSubmit" />
+          </AssociationSet>
+          <AssociationSet Name="ItemsToSubmitTypeCons" Association="ButiqueShopsModel.ItemsToSubmitTypeCons">
+            <End Role="ItemTypes" EntitySet="ItemTypes" />
+            <End Role="ItemsToSubmit" EntitySet="ItemsToSubmit" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -685,6 +740,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ItemTypeCons" FromRole="ItemTypes" ToRole="Items" />
+          <NavigationProperty Name="ItemsToSubmit" Relationship="ButiqueShopsModel.ItemsToSubmitTypeCons" FromRole="ItemTypes" ToRole="ItemsToSubmit" />
         </EntityType>
         <EntityType Name="Shops">
           <Key>
@@ -704,6 +760,7 @@
           <NavigationProperty Name="Items" Relationship="ButiqueShopsModel.ShopsCons" FromRole="Shops" ToRole="Items" />
           <NavigationProperty Name="UserLikeShop" Relationship="ButiqueShopsModel.ShopUserLiked" FromRole="Shops" ToRole="UserLikeShop" />
           <NavigationProperty Name="UserVisitedShop" Relationship="ButiqueShopsModel.ShopUserVisited" FromRole="Shops" ToRole="UserVisitedShop" />
+          <NavigationProperty Name="ItemsToSubmit" Relationship="ButiqueShopsModel.ItemsToSubmitShopsCons" FromRole="Shops" ToRole="ItemsToSubmit" />
         </EntityType>
         <EntityType Name="Sizes">
           <Key>
@@ -936,6 +993,45 @@
           <End Type="ButiqueShopsModel.Items" Role="Items" Multiplicity="*" />
           <End Type="ButiqueShopsModel.Sizes" Role="Sizes" Multiplicity="*" />
         </Association>
+        <EntityType Name="ItemsToSubmit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SmallImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShopId" Type="Int32" />
+          <NavigationProperty Name="Shops" Relationship="ButiqueShopsModel.ItemsToSubmitShopsCons" FromRole="ItemsToSubmit" ToRole="Shops" />
+          <NavigationProperty Name="ItemTypes" Relationship="ButiqueShopsModel.ItemsToSubmitTypeCons" FromRole="ItemsToSubmit" ToRole="ItemTypes" />
+        </EntityType>
+        <Association Name="ItemsToSubmitShopsCons">
+          <End Type="ButiqueShopsModel.Shops" Role="Shops" Multiplicity="0..1" />
+          <End Type="ButiqueShopsModel.ItemsToSubmit" Role="ItemsToSubmit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemsToSubmit">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ItemsToSubmitTypeCons">
+          <End Type="ButiqueShopsModel.ItemTypes" Role="ItemTypes" Multiplicity="1" />
+          <End Type="ButiqueShopsModel.ItemsToSubmit" Role="ItemsToSubmit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemsToSubmit">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1114,6 +1210,20 @@
               <ScalarProperty Name="Id" ColumnName="ItemId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ItemsToSubmit">
+            <EntityTypeMapping TypeName="ButiqueShopsModel.ItemsToSubmit">
+              <MappingFragment StoreEntitySet="ItemsToSubmit">
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="SmallImagePath" ColumnName="SmallImagePath" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

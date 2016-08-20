@@ -38,5 +38,6 @@ namespace ButiqueShops.Models
         public virtual DbSet<UserLikeShop> UserLikeShop { get; set; }
         public virtual DbSet<UserVisitedShop> UserVisitedShop { get; set; }
         public virtual DbSet<UserVistedItem> UserVistedItem { get; set; }
+        public virtual DbSet<ItemsToSubmit> ItemsToSubmit { get; set; }
     }
 }
