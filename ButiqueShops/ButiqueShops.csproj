@@ -267,6 +267,12 @@
     <Content Include="Content\Galleries\dresses.min.css">
       <DependentUpon>dresses.css</DependentUpon>
     </Content>
+    <Content Include="Content\Galleries\gallerystyle.css">
+      <DependentUpon>gallerystyle.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Galleries\gallerystyle.min.css">
+      <DependentUpon>gallerystyle.css</DependentUpon>
+    </Content>
     <Content Include="Content\Galleries\Pants.css">
       <DependentUpon>Pants.less</DependentUpon>
     </Content>
@@ -326,6 +332,7 @@
     <Content Include="Images\Items\dress\18.png" />
     <Content Include="Images\Items\dress\2.png" />
     <Content Include="Images\Items\dress\3.png" />
+    <Content Include="Images\Items\dress\3b.jpg" />
     <Content Include="Images\Items\dress\4.png" />
     <Content Include="Images\Items\dress\5.png" />
     <Content Include="Images\Items\dress\6.png" />
@@ -360,6 +367,9 @@
     <Content Include="Images\owl-crsl\AjaxLoader.gif" />
     <Content Include="Images\owl-crsl\grabbing.png" />
     <Content Include="Images\Shops\logo-1.jpg" />
+    <Content Include="Images\Shops\logosoh.jpg" />
+    <Content Include="Images\Shops\logoyama.jpg" />
+    <Content Include="Images\Shops\metro1.jpg" />
     <Content Include="Images\Shops\store-1.jpg" />
     <Content Include="Models\ButiqueModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -526,6 +536,7 @@
     <Content Include="Content\Galleries\dresses.less" />
     <Content Include="Content\Galleries\shirt.less" />
     <Content Include="Views\Galleries\Item.cshtml" />
+    <Content Include="Content\Galleries\gallerystyle.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
