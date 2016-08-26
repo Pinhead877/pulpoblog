@@ -21,17 +21,14 @@ namespace ButiqueShops
                 mapper.CreateMap<AspNetRoles, RolesViewModel>();
                 mapper.CreateMap<RolesViewModel, AspNetRoles> ();
 
-                mapper.CreateMap<AspNetUsers, UserViewModel>()
-                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.AspNetRoles));
-                mapper.CreateMap<UserViewModel, AspNetUsers>()
-                .ForMember(dest => dest.AspNetRoles, opt => opt.MapFrom(src => src.Roles));
+                mapper.CreateMap<AspNetUsers, UserViewModel>().ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.AspNetRoles));
+                mapper.CreateMap<UserViewModel, AspNetUsers>().ForMember(dest => dest.AspNetRoles, opt => opt.MapFrom(src => src.Roles));
 
                 mapper.CreateMap<Items, ItemsViewModel>();
                 mapper.CreateMap<ItemsViewModel, Items>();
 
-                mapper.CreateMap<ItemsToSubmit, Items>().ForMember(dest=>dest.DateAdded, opt => opt.UseValue(DateTime.Now));
+                mapper.CreateMap<ItemsToSubmit, Items>().ForMember(dest => dest.DateAdded, opt => opt.UseValue(DateTime.Now));
             });
-            
         }
     }
 }

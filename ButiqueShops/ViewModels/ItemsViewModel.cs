@@ -13,10 +13,14 @@ namespace ButiqueShops.ViewModels
         public ItemsViewModel()
         {
             DateAdded = DateTime.Now;
+            Colors = new List<Colors>();
+            Sizes = new List<Sizes>();
         }
 
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         [Display(Name="Type")]
         public int TypeId { get; set; }
         public Nullable<double> Price { get; set; }
@@ -25,11 +29,14 @@ namespace ButiqueShops.ViewModels
         public string ImagePath { get; set; }
         [Display(Name = "Small Image")]
         public string SmallImagePath { get; set; }
+        [Required]
         [Display(Name = "Shop Name")]
         public Nullable<int> ShopId { get; set; }
         public System.DateTime DateAdded { get; set; }
+        [Required]
         [Display(Name = "Sizes")]
         public int [] sizesIds { get; set; }
+        [Required]
         [Display(Name = "Colors")]
         public int [] colorsIds { get; set; }
 
@@ -49,5 +56,6 @@ namespace ButiqueShops.ViewModels
         public int? shopid { get; set; }
         public int? [] colorids { get; set; }
         public int? [] sizeids { get; set; }
+        public int? itemTypeId { get; set; }
     }
 }

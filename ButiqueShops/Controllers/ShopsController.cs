@@ -10,13 +10,19 @@ using System.Web.Mvc;
 using ButiqueShops.Models;
 using ButiqueShops.Extensions;
 using System.IO;
+using ButiqueShops.ViewModels;
+using AutoMapper;
 
 namespace ButiqueShops.Controllers
 {
     public class ShopsController : Controller
     {
-
-        private ButiqueShopsEntities db = new ButiqueShopsEntities();
+        private ButiqueShopsEntities db;
+        public ShopsController()
+        {
+            db = new ButiqueShopsEntities();
+            AutoMapperConfig.Config();
+        }
 
         // GET: Shops
         [AuthorizeRoles(Roles = "Administrator")]
@@ -54,7 +60,7 @@ namespace ButiqueShops.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Roles = "Administrator")]
-        public async Task<ActionResult> Create(Shops shops)
+        public async Task<ActionResult> Create(ShopViewModel shops)
         {
             if (Request.Files.Count > 0)
             {
@@ -67,7 +73,7 @@ namespace ButiqueShops.Controllers
             if (ModelState.IsValid)
             {
                 shops.DateAdded = DateTime.Now;
-                db.Shops.Add(shops);
+                db.Shops.Add(Mapper.Map<Shops>(shops));
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -94,14 +100,14 @@ namespace ButiqueShops.Controllers
                 return View("Unauthorized");
             }
             ViewBag.OwnerId = new SelectList(db.AspNetUsers, "Id", "UserName", shops.OwnerId);
-            return View(shops);
+            return View(Mapper.Map<ShopViewModel>(shops));
         }
 
         // POST: Shops/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
-        public async Task<ActionResult> Edit(Shops shops)
+        public async Task<ActionResult> Edit(ShopViewModel shops)
         {
             if (Request.Files.Count > 0)
             {
@@ -116,7 +122,7 @@ namespace ButiqueShops.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Entry(shops).State = EntityState.Modified;
+                db.Entry(Mapper.Map<Shops>(shops)).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 if (User.IsInRole("Administrator"))
                 {

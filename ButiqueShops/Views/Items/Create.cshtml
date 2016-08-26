@@ -68,7 +68,7 @@
                 @Html.LabelFor(model => model.Colors, "Colors", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.ListBox("colorsIds", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Colors, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.colorsIds, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -76,7 +76,7 @@
                 @Html.LabelFor(model => model.Sizes, "Sizes", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.ListBox("sizesIds", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Sizes, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.sizesIds, "", new { @class = "text-danger" })
                 </div>
             </div>
 

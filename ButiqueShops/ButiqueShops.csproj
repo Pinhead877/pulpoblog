@@ -499,9 +499,7 @@
     <Content Include="Views\ItemTypes\Edit.cshtml" />
     <Content Include="Views\ItemTypes\Index.cshtml" />
     <Content Include="Views\Shared\_SearchHelpNav.cshtml" />
-    <Content Include="Views\Shop\AddShop.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\Shop\AdminShopList.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
     <Content Include="Views\Roles\Details.cshtml" />
@@ -509,7 +507,6 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\UserRoles\index.cshtml" />
     <Content Include="Views\UserRoles\Create.cshtml" />
-    <Content Include="Views\Shop\ShopItems.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
@@ -547,6 +544,8 @@
     <Content Include="Views\ItemsToSubmit\Details.cshtml" />
     <Content Include="Views\ItemsToSubmit\Edit.cshtml" />
     <Content Include="Views\ItemsToSubmit\Index.cshtml" />
+    <Content Include="Views\Galleries\ShopsList.cshtml" />
+    <Content Include="Views\Galleries\ItemsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

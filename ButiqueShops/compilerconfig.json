@@ -22,5 +22,9 @@
   {
     "outputFile": "Content/Galleries/gallerystyle.css",
     "inputFile": "Content/Galleries/gallerystyle.less"
+  },
+  {
+    "outputFile": "Content/Galleries/shopslist.css",
+    "inputFile": "Content/Galleries/shopslist.less"
   }
 ]

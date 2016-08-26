@@ -1,6 +1,20 @@
 ﻿body {
   background-color: #fff !important;
+  color: black;
 }
 body .container {
   background-color: #fff;
+}
+body .container p,
+body .container h1,
+body .container h2,
+body .container h3,
+body .container h4,
+body .container h5,
+body .container h6 {
+  color: black;
+}
+body .container .imgLogo {
+  margin: 0 auto;
+  margin-bottom: 25px;
 }

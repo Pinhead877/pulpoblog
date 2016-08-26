@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ButiqueShops.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,31 +10,29 @@ namespace ButiqueShops.ViewModels
     public class ShopViewModel
     {
         public int Id { get; set; }
-
         [Required]
-        [Display(Name = "Shop Name")]
         public string Name { get; set; }
-
-        [Display(Name = "Website")]
         public string Website { get; set; }
-
         [Required]
-        [Display(Name = "Phone")]
         public string Phone { get; set; }
-
-        [Display(Name = "Adress")]
-        public string AddressId { get; set; }
-
         [Required]
-        [Display(Name = "Store Owner")]
+        public string Address { get; set; }
+        [Required]
+        [Display(Name="Shop Owner")]
         public string OwnerId { get; set; }
-
-        [Display(Name = "Link To Store Logo")]
+        [Display(Name = "Logo Image")]
         public string LogoPath { get; set; }
+        public Nullable<System.DateTime> DateAdded { get; set; }
+        [Required]
+        public Nullable<double> Longitude { get; set; }
+        [Required]
+        public Nullable<double> Latitude { get; set; }
 
-        [Display(Name = "Date added in PulPo")]
-        public DateTime DateAdded { get; set; }
-
-        public virtual UserViewModel Owner { get; set; }
+        [Display(Name = "Shop Owner")]
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual List<Items> Items { get; set; }
+        public virtual List<UserLikeShop> UserLikeShop { get; set; }
+        public virtual List<UserVisitedShop> UserVisitedShop { get; set; }
+        public virtual List<ItemsToSubmit> ItemsToSubmit { get; set; }
     }
 }
