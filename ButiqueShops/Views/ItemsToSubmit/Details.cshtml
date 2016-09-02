@@ -1,74 +1,75 @@
-﻿@model ButiqueShops.Models.ItemsToSubmit
+﻿@model ButiqueShops.ViewModels.ItemsToSubmitViewModel
 
 @{
     ViewBag.Title = "Details";
 }
+<div class="container first">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>ItemsToSubmit</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-<div>
-    <h4>ItemsToSubmit</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ImagePath)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImagePath)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SmallImagePath)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SmallImagePath)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SmallImagePath)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.SmallImagePath)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Shops.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Shops.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Shops.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Shops.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemTypes.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemTypes.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ItemTypes.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ItemTypes.Name)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

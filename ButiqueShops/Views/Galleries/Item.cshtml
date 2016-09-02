@@ -7,20 +7,38 @@
     <header class="row">
         <h2>@Model.Name</h2>
     </header>
+    <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-3">
+            <h4 class="text-left">Details</h4>
+        </div>
+        <div class="col-sm-2 text-right">
+            <a href="/galleries/orderPage?itemid=@Model.Id" class="btn btn-default btn-lg">לרכישה</a>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
     <article class="row">
         <section class="col-sm-5">
             <img src="@Model.ImagePath" class="img-responsive" />
         </section>
         <section class="col-sm-1"></section>
         <section class="col-sm-5">
-            <h3 class="text-left">Details</h3>
+
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="list-group-item-text" style="padding-bottom:30px;">
                         <span class="col-sm-4"></span>
                         <span class="col-sm-4">
                             @{string likeClass = (ViewBag.likedItem == true) ? "fa fa-heart red" : "fa fa-heart-o";}
-                            <i id="like" class="@likeClass" aria-hidden="true" onclick="likeItem(@Model.Id)"></i> <span id="likecount"> @Model.UserLikedItem.Where(r => r.IsActive == true).ToList().Count</span>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <i id="like" class="@likeClass" aria-hidden="true" onclick="likeItem(@Model.Id)"></i>
+                            }
+                            else
+                            {
+                                <i id="like" class="@likeClass" data-toggle="tooltip" data-placement="top" title="To like please login" aria-hidden="true" onclick="likeItem(@Model.Id)"></i>
+                            }
+                            <span id="likecount"> @Model.UserLikedItem.Where(r => r.IsActive == true).ToList().Count</span>
                         </span>
                         <span class="col-sm-4">
                             <i class="fa fa-eye" aria-hidden="true"></i> @Model.UserVistedItem.Count

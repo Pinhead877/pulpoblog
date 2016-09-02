@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ButiqueShops.Models.ItemsToSubmit>
+﻿@model IEnumerable<ButiqueShops.ViewModels.ItemsToSubmitViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +12,7 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Item Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
@@ -21,10 +21,10 @@
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shops.Name)
+                Shop Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemTypes.Name)
+                Type
             </th>
             <th></th>
         </tr>

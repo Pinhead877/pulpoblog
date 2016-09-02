@@ -30,7 +30,6 @@ namespace ButiqueShops.Models
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Colors> Colors { get; set; }
-        public virtual DbSet<Items> Items { get; set; }
         public virtual DbSet<ItemTypes> ItemTypes { get; set; }
         public virtual DbSet<Shops> Shops { get; set; }
         public virtual DbSet<Sizes> Sizes { get; set; }
@@ -38,6 +37,7 @@ namespace ButiqueShops.Models
         public virtual DbSet<UserLikeShop> UserLikeShop { get; set; }
         public virtual DbSet<UserVisitedShop> UserVisitedShop { get; set; }
         public virtual DbSet<UserVistedItem> UserVistedItem { get; set; }
+        public virtual DbSet<Items> Items { get; set; }
         public virtual DbSet<ItemsToSubmit> ItemsToSubmit { get; set; }
     }
 }

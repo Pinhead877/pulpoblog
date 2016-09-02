@@ -9,16 +9,16 @@
     @for (int i = 0; i < Model.Count; i++)
     {
         var shop = Model[i];
-        if (i % 2 == 0)
+        if (i % 3 == 0)
         {
             @:<div class="row">
         }
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <a href="/galleries/shop?id=@shop.Id">
                 <img class="img-responsive imgLogo" src="@shop.LogoPath"/>
             </a>
         </div>
-        if (i % 2 == 1)
+        if (i % 3 == 2)
         {
             @:</div>
         }

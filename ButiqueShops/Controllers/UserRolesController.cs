@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ButiqueShops.Extensions;
 using ButiqueShops.Models;
 using ButiqueShops.ViewModels;
 using System;
@@ -21,7 +22,6 @@ namespace ButiqueShops.Controllers
             AutoMapperConfig.Config();
         }
 
-        // GET: UserRoles
         public async Task<ActionResult> Index()
         {
             var usersRoles = await db.AspNetUsers.Include(r => r.AspNetRoles).Where(u => u.AspNetRoles.Any()).ToListAsync();
@@ -29,13 +29,11 @@ namespace ButiqueShops.Controllers
             return View(usersRolesViewModel);
         }
 
-        // GET: UserRoles/Details/5
         public ActionResult Details(string id)
         {
             return View();
         }
 
-        // GET: UserRoles/Create
         public async Task<ActionResult> Create()
         {
             var users = db.AspNetUsers.ToListAsync();
@@ -54,7 +52,6 @@ namespace ButiqueShops.Controllers
             return View();
         }
 
-        // POST: UserRoles/Create
         [HttpPost]
         public async Task<ActionResult> Create(UserRolesViewModel userRole)
         {
@@ -81,7 +78,6 @@ namespace ButiqueShops.Controllers
             }
         }
 
-        // GET: UserRoles/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
             var user = await db.AspNetUsers.Include(u => u.AspNetRoles).FirstOrDefaultAsync(u => u.Id == id);
@@ -90,7 +86,6 @@ namespace ButiqueShops.Controllers
             return View();
         }
 
-        // POST: UserRoles/Edit/5
         [HttpPost]
         public async Task<ActionResult> Edit(UserRolesViewModel userRole)
         {
@@ -117,25 +112,31 @@ namespace ButiqueShops.Controllers
             }
         }
 
-        // GET: UserRoles/Delete/5
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
+            var user = await db.AspNetUsers.Include(u => u.AspNetRoles).FirstOrDefaultAsync(u => u.Id == id);
+            ViewBag.UserId = user.UserName;
+            ViewBag.RoleId = user.AspNetRoles.ToList()[0].Name;
             return View();
         }
 
-        // POST: UserRoles/Delete/5
-        [HttpPost]
-        public ActionResult Delete(string id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Roles = "Administrator")]
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var user = await db.AspNetUsers.Include(u => u.AspNetRoles).FirstOrDefaultAsync(u => u.Id == id);
+                user.AspNetRoles.Clear();
+                db.AspNetUsers.Attach(user);
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View("error");
             }
         }
     }

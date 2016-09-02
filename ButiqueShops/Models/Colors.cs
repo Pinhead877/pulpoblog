@@ -18,6 +18,7 @@ namespace ButiqueShops.Models
         public Colors()
         {
             this.Items = new HashSet<Items>();
+            this.ItemsToSubmit = new HashSet<ItemsToSubmit>();
         }
     
         public int Id { get; set; }
@@ -26,5 +27,7 @@ namespace ButiqueShops.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Items> Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItemsToSubmit> ItemsToSubmit { get; set; }
     }
 }

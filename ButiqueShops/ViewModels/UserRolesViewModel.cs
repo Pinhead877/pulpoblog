@@ -10,8 +10,12 @@ namespace ButiqueShops.ViewModels
     public class UserRolesViewModel
     {
         [Display(Name = "User Name")]
+        [Required]
+        [MinLength(1)]
         public string UserId { get; set; }
         [Display(Name ="Role Name")]
+        [Required]
+        [MinLength(1)]
         public string RoleId { get; set; }
     }
 }

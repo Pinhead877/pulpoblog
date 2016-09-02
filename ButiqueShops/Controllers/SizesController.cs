@@ -8,17 +8,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ButiqueShops.Models;
+using ButiqueShops.ViewModels;
+using AutoMapper;
 
 namespace ButiqueShops.Controllers
 {
     public class SizesController : Controller
     {
-        private ButiqueShopsEntities db = new ButiqueShopsEntities();
-
+        private ButiqueShopsEntities db;
+        public SizesController()
+        {
+            db = new ButiqueShopsEntities();
+            AutoMapperConfig.Config();
+        }
         // GET: Sizes
         public async Task<ActionResult> Index()
         {
-            return View(await db.Sizes.ToListAsync());
+            return View(Mapper.Map<List<SizesViewModel>>(await db.Sizes.ToListAsync()));
         }
 
         // GET: Sizes/Details/5
@@ -33,7 +39,7 @@ namespace ButiqueShops.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sizes);
+            return View(Mapper.Map<SizesViewModel>(sizes));
         }
 
         // GET: Sizes/Create
@@ -47,11 +53,11 @@ namespace ButiqueShops.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FullName,ShortName")] Sizes sizes)
+        public async Task<ActionResult> Create([Bind(Include = "Id,FullName,ShortName")] SizesViewModel sizes)
         {
             if (ModelState.IsValid)
             {
-                db.Sizes.Add(sizes);
+                db.Sizes.Add(Mapper.Map<Sizes>(sizes));
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -71,7 +77,7 @@ namespace ButiqueShops.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sizes);
+            return View(Mapper.Map<SizesViewModel>(sizes));
         }
 
         // POST: Sizes/Edit/5
@@ -79,11 +85,11 @@ namespace ButiqueShops.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FullName,ShortName")] Sizes sizes)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FullName,ShortName")] SizesViewModel sizes)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sizes).State = EntityState.Modified;
+                db.Entry(Mapper.Map<Sizes>(sizes)).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -102,7 +108,7 @@ namespace ButiqueShops.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sizes);
+            return View(Mapper.Map<SizesViewModel>(sizes));
         }
 
         // POST: Sizes/Delete/5

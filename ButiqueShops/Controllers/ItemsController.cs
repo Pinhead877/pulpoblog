@@ -75,7 +75,7 @@ namespace ButiqueShops.Controllers
             ViewBag.ShopId = new SelectList(db.Shops, "Id", "Name", selectedItem);
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name"); ;
             ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name");
-            ViewBag.sizesIds = new MultiSelectList(db.Sizes, "Id", "ShortName"); ;
+            ViewBag.sizesIds = new MultiSelectList(db.Sizes, "Id", "ShortName");
             return View();
         }
 
@@ -216,6 +216,7 @@ namespace ButiqueShops.Controllers
                 itemdb.Sizes = new List<Sizes>();
                 itemdb.Colors = items.Colors;
                 itemdb.Sizes = items.Sizes;
+                itemdb.IsFeatured = items.IsFeatured;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

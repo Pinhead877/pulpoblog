@@ -45,7 +45,7 @@ namespace ButiqueShops.Controllers
             {
                 return HttpNotFound();
             }
-            return View(shops);
+            return View(Mapper.Map<ShopViewModel>(shops));
         }
 
         // GET: Shops/Create
@@ -122,7 +122,13 @@ namespace ButiqueShops.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Entry(Mapper.Map<Shops>(shops)).State = EntityState.Modified;
+                if(User.IsInRole("Shop Owner"))
+                {
+                    var user = await db.AspNetUsers.FirstOrDefaultAsync(u=>u.UserName==User.Identity.Name);
+                    shops.OwnerId = user.Id;
+                }
+                var shopsModel = Mapper.Map<Shops>(shops);
+                db.Entry(shopsModel).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 if (User.IsInRole("Administrator"))
                 {
@@ -156,7 +162,7 @@ namespace ButiqueShops.Controllers
                 ViewBag.ErrorMessage = "The system cannot delete a shop that has items. Please delete the items first and try again.";
                 return View("Error");
             }
-            return View(shops);
+            return View(Mapper.Map<ShopViewModel>(shops));
         }
 
         // POST: Shops/Delete/5

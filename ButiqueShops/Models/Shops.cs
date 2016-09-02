@@ -17,9 +17,9 @@ namespace ButiqueShops.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shops()
         {
-            this.Items = new HashSet<Items>();
             this.UserLikeShop = new HashSet<UserLikeShop>();
             this.UserVisitedShop = new HashSet<UserVisitedShop>();
+            this.Items = new HashSet<Items>();
             this.ItemsToSubmit = new HashSet<ItemsToSubmit>();
         }
     
@@ -36,11 +36,11 @@ namespace ButiqueShops.Models
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Items> Items { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLikeShop> UserLikeShop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVisitedShop> UserVisitedShop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Items> Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemsToSubmit> ItemsToSubmit { get; set; }
     }

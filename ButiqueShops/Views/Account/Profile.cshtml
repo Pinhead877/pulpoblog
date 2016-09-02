@@ -1,4 +1,5 @@
-﻿<div class="container first">
+﻿@model ButiqueShops.Models.AspNetUsers
+<div class="container first">
     <header>
         <h2>Profile Screen</h2>
     </header>
@@ -20,9 +21,9 @@
     else if (User.IsInRole("Shop Owner"))
     {
         <section class="row">
-            <div class="col-md-3"><a href="~/Galleries/shops">Shops List</a></div>
+            <div class="col-md-3"><a href="/Galleries/ShopsList?ownerid=@Model.Id">Shops List</a></div>
             <div class="col-md-3"><a href="/ItemsToSubmit/Index">Items To Submit</a></div>
-            <div class="col-md-3"><a href="">Shops Items</a></div>
+            <div class="col-md-3"><a href="/Galleries/ItemsList?ownerid=@Model.Id">Shops Items</a></div>
             <div class="col-md-3"><a href=""></a></div>
         </section>
     }

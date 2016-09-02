@@ -14,6 +14,13 @@ namespace ButiqueShops.Models
     
     public partial class ItemsToSubmit
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ItemsToSubmit()
+        {
+            this.Colors = new HashSet<Colors>();
+            this.Sizes = new HashSet<Sizes>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public int TypeId { get; set; }
@@ -25,5 +32,9 @@ namespace ButiqueShops.Models
     
         public virtual Shops Shops { get; set; }
         public virtual ItemTypes ItemTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Colors> Colors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sizes> Sizes { get; set; }
     }
 }

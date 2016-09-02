@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ButiqueShops.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace ButiqueShops.Controllers
 {
@@ -18,9 +19,11 @@ namespace ButiqueShops.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ButiqueShopsEntities db;
 
         public AccountController()
         {
+            db = new ButiqueShopsEntities();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -416,9 +419,10 @@ namespace ButiqueShops.Controllers
         }
 
         [Authorize]
-        public ActionResult UserProfile()
+        public async Task<ActionResult> UserProfile()
         {
-            return View("Profile");
+            var user = await db.AspNetUsers.FirstOrDefaultAsync(u=>u.UserName==User.Identity.Name);
+            return View("Profile", user);
         }
 
         protected override void Dispose(bool disposing)

@@ -1,6 +1,9 @@
-﻿using System;
+﻿using ButiqueShops.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,9 +11,14 @@ namespace ButiqueShops.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private ButiqueShopsEntities db;
+        public HomeController()
         {
-            return View();
+            db = new ButiqueShopsEntities();
+        }
+        public async Task<ActionResult> Index()
+        {
+            return View(await db.Items.Where(i=>i.IsFeatured).ToListAsync());
         }
 
         public ActionResult About()

@@ -11,6 +11,7 @@ using ButiqueShops.Models;
 using ButiqueShops.Extensions;
 using System.IO;
 using AutoMapper;
+using ButiqueShops.ViewModels;
 
 namespace ButiqueShops.Controllers
 {
@@ -34,7 +35,9 @@ namespace ButiqueShops.Controllers
                 var shopOwner = await db.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
                 query = query.Where(s=>s.Shops.OwnerId==shopOwner.Id);
             }
-            return View(await query.ToListAsync());
+            var items = await query.ToListAsync();
+            var itemsToSubmitViewModel = Mapper.Map<List<ItemsToSubmitViewModel>>(items);
+            return View(itemsToSubmitViewModel);
         }
 
         // GET: ItemsToSubmits/Details/5
@@ -49,7 +52,7 @@ namespace ButiqueShops.Controllers
             {
                 return HttpNotFound();
             }
-            return View(itemsToSubmit);
+            return View(Mapper.Map<ItemsToSubmitViewModel>(itemsToSubmit));
         }
 
         // GET: ItemsToSubmits/Create
@@ -63,13 +66,15 @@ namespace ButiqueShops.Controllers
             }
             ViewBag.ShopId = new SelectList(query, "Id", "Name");
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name");
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name");
+            ViewBag.sizesIds = new MultiSelectList(db.Sizes, "Id", "ShortName");
             return View();
         }
 
         // POST: ItemsToSubmits/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ItemsToSubmit itemsToSubmit)
+        public async Task<ActionResult> Create(ItemsToSubmitViewModel itemsToSubmit)
         {
             if (Request.Files.Count > 0)
             {
@@ -90,9 +95,29 @@ namespace ButiqueShops.Controllers
                     itemsToSubmit.SmallImagePath = "/Images/" + fileName;
                 }
             }
+            var sizesFromDB = await db.Sizes.ToListAsync();
+            var colorsFromDB = await db.Colors.ToListAsync();
             if (ModelState.IsValid)
             {
-                db.ItemsToSubmit.Add(itemsToSubmit);
+                if (itemsToSubmit.sizesIds != null)
+                {
+                    foreach (var size in itemsToSubmit.sizesIds)
+                    {
+                        itemsToSubmit.Sizes = (itemsToSubmit.Sizes == null) ? new List<Sizes>() : itemsToSubmit.Sizes;
+                        itemsToSubmit.Sizes.Add(sizesFromDB.FirstOrDefault(s => s.Id == size));
+                    }
+
+                }
+                if (itemsToSubmit.colorsIds != null)
+                {
+                    foreach (var color in itemsToSubmit.colorsIds)
+                    {
+                        itemsToSubmit.Colors = itemsToSubmit.Colors == null ? new List<Colors>() : itemsToSubmit.Colors;
+                        itemsToSubmit.Colors.Add(colorsFromDB.FirstOrDefault(s => s.Id == color));
+                    }
+                }
+                var itemsToSubmitModel = Mapper.Map<ItemsToSubmit>(itemsToSubmit);
+                db.ItemsToSubmit.Add(itemsToSubmitModel);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -104,6 +129,8 @@ namespace ButiqueShops.Controllers
             }
             ViewBag.ShopId = new SelectList(query, "Id", "Name", itemsToSubmit.ShopId);
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name", itemsToSubmit.TypeId);
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name", itemsToSubmit.Colors.Select(r => r.Id).ToArray());
+            ViewBag.sizesIds = new MultiSelectList(sizesFromDB, "Id", "ShortName", itemsToSubmit.Sizes.Select(r => r.Id).ToArray());
             return View(itemsToSubmit);
         }
 
@@ -125,15 +152,18 @@ namespace ButiqueShops.Controllers
                 var shopOwner = await db.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
                 query = query.Where(u => u.OwnerId == shopOwner.Id);
             }
+
             ViewBag.ShopId = new SelectList(query, "Id", "Name", itemsToSubmit.ShopId);
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name", itemsToSubmit.TypeId);
-            return View(itemsToSubmit);
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name", itemsToSubmit.Colors.Select(r => r.Id).ToArray());
+            ViewBag.sizesIds = new MultiSelectList(db.Sizes, "Id", "ShortName", itemsToSubmit.Sizes.Select(r => r.Id).ToArray());
+            return View(Mapper.Map<ItemsToSubmitViewModel>(itemsToSubmit));
         }
 
         // POST: ItemsToSubmits/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ItemsToSubmit itemsToSubmit)
+        public async Task<ActionResult> Edit(ItemsToSubmitViewModel itemsToSubmit)
         {
             if (Request.Files.Count > 0)
             {
@@ -154,9 +184,41 @@ namespace ButiqueShops.Controllers
                     itemsToSubmit.SmallImagePath = "/Images/" + fileName;
                 }
             }
+            var sizesFromDB = db.Sizes.ToList();
+            var colorsFromDB = db.Colors.ToList();
             if (ModelState.IsValid)
             {
-                db.Entry(itemsToSubmit).State = EntityState.Modified;
+                if (itemsToSubmit.sizesIds != null)
+                {
+                    foreach (int size in itemsToSubmit.sizesIds)
+                    {
+                        itemsToSubmit.Sizes = (itemsToSubmit.Sizes == null) ? new List<Sizes>() : itemsToSubmit.Sizes;
+                        itemsToSubmit.Sizes.Add(sizesFromDB.FirstOrDefault(s => s.Id == size));
+                    }
+                }
+                if (itemsToSubmit.colorsIds != null)
+                {
+                    foreach (int color in itemsToSubmit.colorsIds)
+                    {
+                        itemsToSubmit.Colors = itemsToSubmit.Colors == null ? new List<Colors>() : itemsToSubmit.Colors;
+                        itemsToSubmit.Colors.Add(colorsFromDB.FirstOrDefault(s => s.Id == color));
+                    }
+                }
+                var itemsModel = Mapper.Map<ItemsToSubmit>(itemsToSubmit);
+                var itemdb = await db.ItemsToSubmit.FirstOrDefaultAsync(o => o.Id == itemsToSubmit.Id);
+                db.Entry(itemdb).Collection(c => c.Colors).Load();
+                db.Entry(itemdb).Collection(c => c.Sizes).Load();
+                itemdb.ImagePath = itemsModel.ImagePath;
+                itemdb.TypeId = itemsToSubmit.TypeId;
+                itemdb.Name = itemsToSubmit.Name;
+                itemdb.Price = itemsModel.Price;
+                itemdb.Quantity = itemsToSubmit.Quantity;
+                itemdb.ShopId = itemsToSubmit.ShopId;
+                itemdb.SmallImagePath = itemsToSubmit.SmallImagePath;
+                itemdb.Colors = new List<Colors>();
+                itemdb.Sizes = new List<Sizes>();
+                itemdb.Colors = itemsToSubmit.Colors;
+                itemdb.Sizes = itemsToSubmit.Sizes;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -168,6 +230,8 @@ namespace ButiqueShops.Controllers
             }
             ViewBag.ShopId = new SelectList(query, "Id", "Name", itemsToSubmit.ShopId);
             ViewBag.TypeId = new SelectList(db.ItemTypes, "Id", "Name", itemsToSubmit.TypeId);
+            ViewBag.colorsIds = new MultiSelectList(db.Colors.OrderBy(r => r.Name), "Id", "Name", itemsToSubmit.Colors.Select(r => r.Id).ToArray());
+            ViewBag.sizesIds = new MultiSelectList(sizesFromDB, "Id", "ShortName", itemsToSubmit.Sizes);
             return View(itemsToSubmit);
         }
 
@@ -191,7 +255,7 @@ namespace ButiqueShops.Controllers
                     return View("Unauthorized");
                 }
             }
-            return View(itemsToSubmit);
+            return View(Mapper.Map<ItemsToSubmitViewModel>(itemsToSubmit));
         }
 
         // POST: ItemsToSubmits/Delete/5

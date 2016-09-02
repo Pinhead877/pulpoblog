@@ -13,6 +13,8 @@ namespace ButiqueShops.ViewModels
         public ItemsViewModel()
         {
             DateAdded = DateTime.Now;
+            ImagePath = "/Images/defaultImage.jpg";
+            SmallImagePath = "/Images/defaultSmaillImage.jpg";
             Colors = new List<Colors>();
             Sizes = new List<Sizes>();
         }
@@ -39,6 +41,8 @@ namespace ButiqueShops.ViewModels
         [Required]
         [Display(Name = "Colors")]
         public int [] colorsIds { get; set; }
+        [Display(Name = "Featured Item")]
+        public bool IsFeatured { get; set; }
 
         [Display(Name = "Colors")]
         public virtual List<Colors> Colors { get; set; }
@@ -57,5 +61,6 @@ namespace ButiqueShops.ViewModels
         public int? [] colorids { get; set; }
         public int? [] sizeids { get; set; }
         public int? itemTypeId { get; set; }
+        public string ownerid { get; set; }
     }
 }

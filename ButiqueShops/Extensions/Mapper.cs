@@ -27,7 +27,13 @@ namespace ButiqueShops
                 mapper.CreateMap<Items, ItemsViewModel>();
                 mapper.CreateMap<ItemsViewModel, Items>();
 
+                mapper.CreateMap<ItemsToSubmit, ItemsToSubmitViewModel>();
+                mapper.CreateMap<ItemsToSubmitViewModel, ItemsToSubmit>();
+
                 mapper.CreateMap<ItemsToSubmit, Items>().ForMember(dest => dest.DateAdded, opt => opt.UseValue(DateTime.Now));
+
+                mapper.CreateMap<Sizes, SizesViewModel>();
+                mapper.CreateMap<SizesViewModel, Sizes>();
             });
         }
     }

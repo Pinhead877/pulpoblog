@@ -22,6 +22,7 @@ namespace ButiqueShops.ViewModels
         public string OwnerId { get; set; }
         [Display(Name = "Logo Image")]
         public string LogoPath { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DateAdded { get; set; }
         [Required]
         public Nullable<double> Longitude { get; set; }
@@ -34,5 +35,10 @@ namespace ButiqueShops.ViewModels
         public virtual List<UserLikeShop> UserLikeShop { get; set; }
         public virtual List<UserVisitedShop> UserVisitedShop { get; set; }
         public virtual List<ItemsToSubmit> ItemsToSubmit { get; set; }
+    }
+
+    public class ShopSpecification
+    {
+        public string ownerid { get; set; }
     }
 }
