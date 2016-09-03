@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ButiqueShops.Models.Shops>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Shops";
 }
 <div class="container first">
     <h2>Shop List</h2>
@@ -39,7 +39,8 @@
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                    @Html.ActionLink("View Items", "index", "Items", new { shopId = item.Id }, null)
+                    @Html.ActionLink("Items", "index", "Items", new { shopId = item.Id }, null) |
+                    @Html.ActionLink("Liked By", "LikedBy", "Galleries", new { id = item.Id }, null)
                 </td>
             </tr>
         }

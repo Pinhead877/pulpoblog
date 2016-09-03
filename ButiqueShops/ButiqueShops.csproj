@@ -555,6 +555,10 @@
     <Content Include="Views\Galleries\OrderPage.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\UserRoles\Delete.cshtml" />
+    <Content Include="Views\Galleries\ShopLikedBy.cshtml" />
+    <Content Include="Views\Galleries\ShopVisitedBy.cshtml" />
+    <Content Include="Views\Galleries\ItemVisitedBy.cshtml" />
+    <Content Include="Views\Galleries\ItemLikedBy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

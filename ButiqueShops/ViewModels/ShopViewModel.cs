@@ -40,5 +40,7 @@ namespace ButiqueShops.ViewModels
     public class ShopSpecification
     {
         public string ownerid { get; set; }
+        public string userliked { get; set; }
+        public string uservisited { get; set; }
     }
 }

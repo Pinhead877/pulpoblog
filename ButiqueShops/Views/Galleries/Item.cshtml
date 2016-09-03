@@ -5,25 +5,20 @@
 
 <div class="container first">
     <header class="row">
-        <h2>@Model.Name</h2>
+        <h2 class="text-center">@Model.Name</h2>
     </header>
-    <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-3">
-            <h4 class="text-left">Details</h4>
-        </div>
-        <div class="col-sm-2 text-right">
-            <a href="/galleries/orderPage?itemid=@Model.Id" class="btn btn-default btn-lg">לרכישה</a>
-        </div>
-        <div class="col-sm-1"></div>
-    </div>
-    <article class="row">
-        <section class="col-sm-5">
+    <section class="row">
+        <article class="col-sm-6">
             <img src="@Model.ImagePath" class="img-responsive" />
-        </section>
-        <section class="col-sm-1"></section>
-        <section class="col-sm-5">
-
+        </article>
+        <article class="col-sm-1"></article>
+        <article class="col-sm-5">
+            <section class="row">
+                <h3 class="col-md-6 text-left">Details</h3>
+                <div class="col-sm-6 text-right">
+                    <a href="/galleries/orderPage?itemid=@Model.Id" class="btn btn-default btn-lg"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Order Now</a>
+                </div>
+            </section>
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="list-group-item-text" style="padding-bottom:30px;">
@@ -88,9 +83,24 @@
                     <h4 class="list-group-item-heading">Shop:</h4>
                     <p class="list-group-item-text"><a href="/galleries/shop?id=@Model.Shops.Id">@Model.Shops.Name</a></p>
                 </li>
+                @if (ViewBag.IsShopOwner != null && ViewBag.IsShopOwner == true)
+                {
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">Item Stats:</h4>
+                        <p class="list-group-item-text">
+                            <a href="/galleries/ItemLikedBy?id=@Model.Id">
+                                אהבו
+                            </a>
+                            -
+                            <a href="/galleries/ItemVisitedBy?id=@Model.Id">
+                                צפו
+                            </a>
+                        </p>
+                    </li>
+                }
             </ul>
-        </section>
-    </article>
+        </article>
+    </section>
     <footer class="row"></footer>
 </div>
 

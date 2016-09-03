@@ -4,7 +4,9 @@
     ViewBag.Title = Model.Name;
 }
 <div class="container first">
-    <header class="row"><h2 class="text-center">@Model.Name</h2></header>
+    <header class="row">
+        <h2 class="text-center">@Model.Name</h2>
+    </header>
     <section class="row">
         <article class="col-sm-6">
             <img src="@Model.LogoPath" class="img-responsive img-thumbnail" />
@@ -65,6 +67,18 @@
                         <p class="list-group-item-text">
                             <a href="/shops/edit?id=@Model.Id">
                                 עריכת החנות
+                            </a>
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">Store Stats:</h4>
+                        <p class="list-group-item-text">
+                            <a href="/galleries/ShopLikedBy?id=@Model.Id">
+                                אהבו
+                            </a>
+                             - 
+                            <a href="/galleries/ShopVisitedBy?id=@Model.Id">
+                                צפו
                             </a>
                         </p>
                     </li>

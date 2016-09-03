@@ -1,4 +1,6 @@
-﻿using ButiqueShops.Models;
+﻿using AutoMapper;
+using ButiqueShops.Extensions;
+using ButiqueShops.Models;
 using ButiqueShops.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,28 +20,9 @@ namespace ButiqueShops.Controllers
         public GalleriesController()
         {
             db = new ButiqueShopsEntities();
+            AutoMapperConfig.Config();
         }
 
-        // GET: Galleries
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult Pants()
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult Shirts()
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult Dresses()
-        //{
-        //    return View();
-        //}
         [Authorize]
         public async Task<ActionResult> OrderPage(int itemid)
         {
@@ -90,6 +73,7 @@ namespace ButiqueShops.Controllers
                     db.Entry(user).State = EntityState.Modified;
                 }
                 await db.SaveChangesAsync();
+                if(item.Shops.OwnerId == user.Id) ViewBag.IsShopOwner = true;
             }
             return View(item);
         }
@@ -100,6 +84,14 @@ namespace ButiqueShops.Controllers
             if (!string.IsNullOrEmpty(spec.ownerid))
             {
                 query = query.Where(s => s.OwnerId == spec.ownerid);
+            }
+            if (!string.IsNullOrEmpty(spec.userliked))
+            {
+                query = query.Include(r => r.UserLikeShop).Where(i => i.UserLikeShop.Where(r => r.IsActive).Select(u => u.UserId).Contains(spec.userliked));
+            }
+            if (!string.IsNullOrEmpty(spec.uservisited))
+            {
+                query = query.Include(r => r.UserVisitedShop).Where(y => y.UserVisitedShop.Select(t => t.UserId).Contains(spec.uservisited));
             }
             return View(await query.ToListAsync());
         }
@@ -140,7 +132,41 @@ namespace ButiqueShops.Controllers
                     }
                 }
             }
+            if (!string.IsNullOrEmpty(spec.userliked))
+            {
+                query = query.Include(r=>r.UserLikedItem).Where(i=>i.UserLikedItem.Where(r=>r.IsActive).Select(u=>u.UserId).Contains(spec.userliked));
+            }
+            if (!string.IsNullOrEmpty(spec.uservisited))
+            {
+                query = query.Include(r => r.UserVistedItem).Where(y=>y.UserVistedItem.Select(t=>t.UserId).Contains(spec.uservisited));
+            }
             return View(await query.ToListAsync());
+        }
+
+        [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
+        public async Task<ActionResult> ShopLikedBy(int id)
+        {
+            var users = await db.AspNetUsers.Include(u => u.UserLikeShop).Where(t => t.UserLikeShop.Where(r=>r.IsActive).Select(r => r.ShopId).Contains(id)).ToListAsync();
+            return View(Mapper.Map<List<UserViewModel>>(users));
+        }
+
+        [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
+        public async Task<ActionResult> ShopVisitedBy(int id)
+        {
+            return View(Mapper.Map<List<UserViewModel>>(await db.AspNetUsers.Include(u => u.UserVisitedShop).Where(t => t.UserVisitedShop.Select(r => r.ShopId).Contains(id)).ToListAsync()));
+        }
+
+        [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
+        public async Task<ActionResult> ItemLikedBy(int id)
+        {
+            var users = await db.AspNetUsers.Include(u => u.UserLikedItem).Where(t => t.UserLikedItem.Where(r => r.IsActive).Select(r => r.ItemId).Contains(id)).ToListAsync();
+            return View(Mapper.Map<List<UserViewModel>>(users));
+        }
+
+        [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
+        public async Task<ActionResult> ItemVisitedBy(int id)
+        {
+            return View(Mapper.Map<List<UserViewModel>>(await db.AspNetUsers.Include(u => u.UserVistedItem).Where(t => t.UserVistedItem.Select(r => r.ItemId).Contains(id)).ToListAsync()));
         }
 
     }

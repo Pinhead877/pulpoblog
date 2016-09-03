@@ -62,5 +62,8 @@ namespace ButiqueShops.ViewModels
         public int? [] sizeids { get; set; }
         public int? itemTypeId { get; set; }
         public string ownerid { get; set; }
+        public string userliked { get; set; }
+        public string uservisited { get; set; }
+
     }
 }
