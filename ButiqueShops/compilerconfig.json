@@ -26,5 +26,13 @@
   {
     "outputFile": "Content/Galleries/shopslist.css",
     "inputFile": "Content/Galleries/shopslist.less"
+  },
+  {
+    "outputFile": "Content/Home/Help.css",
+    "inputFile": "Content/Home/Help.less"
+  },
+  {
+    "outputFile": "Content/Home/About.css",
+    "inputFile": "Content/Home/About.less"
   }
 ]

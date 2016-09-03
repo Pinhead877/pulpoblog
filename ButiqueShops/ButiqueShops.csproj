@@ -294,6 +294,10 @@
     </Content>
     <Content Include="Content\grayscale.css" />
     <Content Include="Content\grayscale.min.css" />
+    <Content Include="Content\Home\About.css" />
+    <Content Include="Content\Home\About.min.css" />
+    <Content Include="Content\Home\Help.css" />
+    <Content Include="Content\Home\Help.min.css" />
     <Content Include="Content\index\index.css">
       <DependentUpon>index.less</DependentUpon>
     </Content>
@@ -559,6 +563,9 @@
     <Content Include="Views\Galleries\ShopVisitedBy.cshtml" />
     <Content Include="Views\Galleries\ItemVisitedBy.cshtml" />
     <Content Include="Views\Galleries\ItemLikedBy.cshtml" />
+    <Content Include="Content\Home\About.less" />
+    <Content Include="Content\Home\Help.less" />
+    <Content Include="Views\Home\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
