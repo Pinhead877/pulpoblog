@@ -253,6 +253,36 @@ namespace ButiqueShops.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<ActionResult> TopLiked()
+        {
+            var itemsIdsLiked = await db.UserLikedItem.Where(r => r.IsActive).GroupBy(t => t.ItemId).Select(g => new { ItemId = g.Key, LikeCount = g.Count() }).OrderByDescending(f => f.LikeCount).Take(10).ToListAsync();
+            var itemsLiked = new List<ItemsViewModel>();
+            for (int i = 0; i < itemsIdsLiked.Count; i++)
+            {
+                var id = itemsIdsLiked[i].ItemId;
+                var item = await db.Items.FirstOrDefaultAsync(g => g.Id == id);
+                var itemsViewModel = Mapper.Map<ItemsViewModel>(item);
+                itemsViewModel.NumOfLikes = itemsIdsLiked[i].LikeCount;
+                itemsLiked.Add(itemsViewModel);
+            }
+            return View(itemsLiked);
+        }
+
+        public async Task<ActionResult> TopVisited()
+        {
+            var itemsIdsVisited = await db.UserVistedItem.GroupBy(t => t.ItemId).Select(g => new { ItemId = g.Key, VisitCount = g.Count() }).OrderByDescending(f => f.VisitCount).Take(10).ToListAsync();
+            var itemsVisited = new List<ItemsViewModel>();
+            for (int i = 0; i < itemsIdsVisited.Count; i++)
+            {
+                var id = itemsIdsVisited[i].ItemId;
+                var item = await db.Items.FirstOrDefaultAsync(g => g.Id == id);
+                var itemsViewModel = Mapper.Map<ItemsViewModel>(item);
+                itemsViewModel.NumOfVisits = itemsIdsVisited[i].VisitCount;
+                itemsVisited.Add(itemsViewModel);
+            }
+            return View(itemsVisited);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -260,11 +290,6 @@ namespace ButiqueShops.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool IsItemValidated(ItemsViewModel items)
-        {
-            return true;
         }
     }
 }

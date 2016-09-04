@@ -177,6 +177,36 @@ namespace ButiqueShops.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<ActionResult> TopLiked()
+        {
+            var shopsIdsLiked = await db.UserLikeShop.Where(r=>r.IsActive).GroupBy(t => t.ShopId).Select(g => new { ShopId = g.Key, LikeCount = g.Count() }).OrderByDescending(f => f.LikeCount).Take(10).ToListAsync();
+            var shopsLiked = new List<ShopViewModel>();
+            for (int i = 0; i < shopsIdsLiked.Count; i++)
+            {
+                var id = shopsIdsLiked[i].ShopId;
+                var shop = await db.Shops.FirstOrDefaultAsync(g => g.Id == id);
+                var shopsViewModel = Mapper.Map<ShopViewModel>(shop);
+                shopsViewModel.NumOfLikes = shopsIdsLiked[i].LikeCount;
+                shopsLiked.Add(shopsViewModel);
+            }
+            return View(shopsLiked);
+        }
+
+        public async Task<ActionResult> TopVisited()
+        {
+            var shopsIdsVisited = await db.UserVisitedShop.GroupBy(t => t.ShopId).Select(g => new { ShopId = g.Key, VisitCount = g.Count() }).OrderByDescending(f => f.VisitCount).Take(10).ToListAsync();
+            var shopsVisited = new List<ShopViewModel>();
+            for (int i=0;i< shopsIdsVisited.Count;i++)
+            {
+                var id = shopsIdsVisited[i].ShopId;
+                var shop = await db.Shops.FirstOrDefaultAsync(g => g.Id == id);
+                var shopsViewModel = Mapper.Map<ShopViewModel>(shop);
+                shopsViewModel.NumOfVisits = shopsIdsVisited[i].VisitCount;
+                shopsVisited.Add(shopsViewModel);
+            }
+            return View(shopsVisited);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

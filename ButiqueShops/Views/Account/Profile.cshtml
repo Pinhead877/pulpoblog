@@ -19,6 +19,12 @@
                 <div class="col-md-3"><a href="/ItemsToSubmit/Index">Items To Submit</a></div>
                 <div class="col-md-3"></div>
             </section>
+            <section class="row">
+                <div class="col-md-3"><a href="/Shops/TopLiked">Top 10 Liked Shops</a></div>
+                <div class="col-md-3"><a href="/Shops/TopVisited">Top 10 Visited Shops</a></div>
+                <div class="col-md-3"><a href="/Items/TopLiked">Top 10 Liked Items</a></div>
+                <div class="col-md-3"><a href="/Items/TopVisited">Top 10 Visited Items</a></div>
+            </section>
         </div>
     }
     else if (User.IsInRole("Shop Owner"))
@@ -43,21 +49,22 @@
                 <h2>Shop Owner Profile Screen</h2>
             </header>
         </div>
+
+        <div class="row" style="margin-top:15px;">
+            <header>
+                <h2>Items</h2>
+            </header>
+            <section class="row">
+                <div class="col-md-6"><a href="/Galleries/ItemsList?userliked=@Model.Id">Items Liked</a></div>
+                <div class="col-md-6"><a href="/Galleries/ItemsList?uservisited=@Model.Id">Items Visited</a></div>
+            </section>
+            <header>
+                <h2>Shops</h2>
+            </header>
+            <section class="row">
+                <div class="col-md-6"><a href="/Galleries/ShopsList?userliked=@Model.Id">Shops Liked</a></div>
+                <div class="col-md-6"><a href="/Galleries/ShopsList?uservisited=@Model.Id">Shops Visited</a></div>
+            </section>
+        </div>
     }
-    <div class="row" style="margin-top:15px;">
-        <header>
-            <h2>Items</h2>
-        </header>
-        <section class="row">
-            <div class="col-md-6"><a href="/Galleries/ItemsList?userliked=@Model.Id">Items Liked</a></div>
-            <div class="col-md-6"><a href="/Galleries/ItemsList?uservisited=@Model.Id">Items Visited</a></div>
-        </section>
-        <header>
-            <h2>Shops</h2>
-        </header>
-        <section class="row">
-            <div class="col-md-6"><a href="/Galleries/ShopsList?userliked=@Model.Id">Shops Liked</a></div>
-            <div class="col-md-6"><a href="/Galleries/ShopsList?uservisited=@Model.Id">Shops Visited</a></div>
-        </section>
-    </div>
 </div>

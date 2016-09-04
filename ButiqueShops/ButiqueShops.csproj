@@ -566,6 +566,10 @@
     <Content Include="Content\Home\About.less" />
     <Content Include="Content\Home\Help.less" />
     <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Items\TopLiked.cshtml" />
+    <Content Include="Views\Shops\TopVisited.cshtml" />
+    <Content Include="Views\Shops\TopLiked.cshtml" />
+    <Content Include="Views\Items\TopVisited.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -43,6 +43,10 @@ namespace ButiqueShops.ViewModels
         public int [] colorsIds { get; set; }
         [Display(Name = "Featured Item")]
         public bool IsFeatured { get; set; }
+        [DisplayName("Likes")]
+        public int? NumOfLikes { get; set; }
+        [DisplayName("Visits")]
+        public int? NumOfVisits { get; set; }
 
         [Display(Name = "Colors")]
         public virtual List<Colors> Colors { get; set; }

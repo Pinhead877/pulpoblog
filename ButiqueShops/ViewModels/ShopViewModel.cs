@@ -1,6 +1,7 @@
 ﻿using ButiqueShops.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -28,6 +29,10 @@ namespace ButiqueShops.ViewModels
         public Nullable<double> Longitude { get; set; }
         [Required]
         public Nullable<double> Latitude { get; set; }
+        [DisplayName("Likes")]
+        public int? NumOfLikes { get; set; }
+        [DisplayName("Visits")]
+        public int? NumOfVisits { get; set; }
 
         [Display(Name = "Shop Owner")]
         public virtual AspNetUsers AspNetUsers { get; set; }
