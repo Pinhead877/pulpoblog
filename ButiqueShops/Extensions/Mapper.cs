@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace ButiqueShops
 {
+    /// <summary>
+    /// Class of the third party packge - auto mapper
+    /// for more info:
+    /// https://github.com/AutoMapper/AutoMapper/wiki/Getting-started
+    /// </summary>
     public static class AutoMapperConfig
     {
         public static void Config()

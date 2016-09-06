@@ -15,11 +15,17 @@ using ButiqueShops.Extensions;
 
 namespace ButiqueShops.Controllers
 {
+    /// <summary>
+    /// CRUD for items
+    /// </summary>
     [AuthorizeRoles(Roles = "Administrator")]
     public class ItemsController : Controller
     {
         private ButiqueShopsEntities db;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ItemsController()
         {
             db = new ButiqueShopsEntities();
@@ -27,6 +33,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Items
+        /// <summary>
+        /// the items list page
+        /// </summary>
+        /// <param name="shopId"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Index(int? shopId)
         {
             IQueryable<Items> query = db.Items.Include(i => i.ItemTypes).Include(i => i.Shops);
@@ -40,6 +51,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Items/Details/5
+        /// <summary>
+        /// Item detail page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,6 +74,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Items/Create
+        /// <summary>
+        /// Create item page
+        /// </summary>
+        /// <param name="shopId">shopid of the item</param>
+        /// <returns></returns>
         public async Task<ActionResult> Create(int? shopId)
         {
             var shops = db.Shops.ToList();
@@ -80,6 +101,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Items/Create
+        /// <summary>
+        /// cteare the item in the system
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ItemsViewModel items)
@@ -138,6 +164,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Items/Edit/5
+        /// <summary>
+        /// opens the edit page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -158,6 +189,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Items/Edit/5
+        /// <summary>
+        /// upadtes an item in the db
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ItemsViewModel items)
@@ -228,6 +264,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Items/Delete/5
+        /// <summary>
+        /// delete item confirmation page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -243,6 +284,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Items/Delete/5
+        /// <summary>
+        /// deletes item from the db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -252,7 +298,11 @@ namespace ButiqueShops.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        
+        /// <summary>
+        /// Shows the 10 most liked items
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> TopLiked()
         {
             var itemsIdsLiked = await db.UserLikedItem.Where(r => r.IsActive).GroupBy(t => t.ItemId).Select(g => new { ItemId = g.Key, LikeCount = g.Count() }).OrderByDescending(f => f.LikeCount).Take(10).ToListAsync();
@@ -268,6 +318,10 @@ namespace ButiqueShops.Controllers
             return View(itemsLiked);
         }
 
+        /// <summary>
+        /// Shows the 10 most visited items
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> TopVisited()
         {
             var itemsIdsVisited = await db.UserVistedItem.GroupBy(t => t.ItemId).Select(g => new { ItemId = g.Key, VisitCount = g.Count() }).OrderByDescending(f => f.VisitCount).Take(10).ToListAsync();

@@ -15,9 +15,15 @@ using AutoMapper;
 
 namespace ButiqueShops.Controllers
 {
+    /// <summary>
+    /// CRUD for shops
+    /// </summary>
     public class ShopsController : Controller
     {
         private ButiqueShopsEntities db;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ShopsController()
         {
             db = new ButiqueShopsEntities();
@@ -25,6 +31,10 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops
+        /// <summary>
+        /// show the shops in the system
+        /// </summary>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Index()
         {
@@ -33,6 +43,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops/Details/5
+        /// <summary>
+        /// shop details page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Details(int? id)
         {
@@ -49,6 +64,10 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops/Create
+        /// <summary>
+        /// shpo create page
+        /// </summary>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator")]
         public ActionResult Create()
         {
@@ -57,6 +76,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Shops/Create
+        /// <summary>
+        /// create a new shop in the db
+        /// </summary>
+        /// <param name="shops"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Roles = "Administrator")]
@@ -83,6 +107,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops/Edit/5
+        /// <summary>
+        /// edit page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
         public async Task<ActionResult> Edit(int? id)
         {
@@ -104,6 +133,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Shops/Edit/5
+        /// <summary>
+        /// updates a shop in the db
+        /// </summary>
+        /// <param name="shops"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
@@ -144,6 +178,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Shops/Delete/5
+        /// <summary>
+        /// shop delete conformation page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Delete(int? id)
         {
@@ -166,6 +205,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Shops/Delete/5
+        /// <summary>
+        /// delete a shop from the db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Roles = "Administrator")]
@@ -177,6 +221,11 @@ namespace ButiqueShops.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// shows the top 10 most liked shops
+        /// </summary>
+        /// <returns></returns>
+        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> TopLiked()
         {
             var shopsIdsLiked = await db.UserLikeShop.Where(r=>r.IsActive).GroupBy(t => t.ShopId).Select(g => new { ShopId = g.Key, LikeCount = g.Count() }).OrderByDescending(f => f.LikeCount).Take(10).ToListAsync();
@@ -192,6 +241,11 @@ namespace ButiqueShops.Controllers
             return View(shopsLiked);
         }
 
+        /// <summary>
+        /// shows the top 10 most visited shops
+        /// </summary>
+        /// <returns></returns>
+        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> TopVisited()
         {
             var shopsIdsVisited = await db.UserVisitedShop.GroupBy(t => t.ShopId).Select(g => new { ShopId = g.Key, VisitCount = g.Count() }).OrderByDescending(f => f.VisitCount).Take(10).ToListAsync();

@@ -15,11 +15,17 @@ using ButiqueShops.ViewModels;
 
 namespace ButiqueShops.Controllers
 {
+    /// <summary>
+    /// CRUD for the itemsToSubmit
+    /// a class for the shop owner to submit items to review
+    /// </summary>
     [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
     public class ItemsToSubmitController : Controller
     {
         private ButiqueShopsEntities db;
-
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ItemsToSubmitController()
         {
             db = new ButiqueShopsEntities();
@@ -27,6 +33,10 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: ItemsToSubmits
+        /// <summary>
+        /// items to submit list
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> Index()
         {
             IQueryable<ItemsToSubmit> query = db.ItemsToSubmit.Include(i => i.Shops).Include(i => i.ItemTypes);
@@ -41,6 +51,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: ItemsToSubmits/Details/5
+        /// <summary>
+        /// item to submit details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,6 +71,10 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: ItemsToSubmits/Create
+        /// <summary>
+        /// create page for item to submit
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> Create()
         {
             IQueryable<Shops> query = db.Shops;
@@ -72,6 +91,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: ItemsToSubmits/Create
+        /// <summary>
+        /// create a new item to submit in the db
+        /// </summary>
+        /// <param name="itemsToSubmit"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ItemsToSubmitViewModel itemsToSubmit)
@@ -135,6 +159,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: ItemsToSubmits/Edit/5
+        /// <summary>
+        /// opens the edit item to submit page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -161,6 +190,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: ItemsToSubmits/Edit/5
+        /// <summary>
+        /// updates an item to submit
+        /// </summary>
+        /// <param name="itemsToSubmit"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ItemsToSubmitViewModel itemsToSubmit)
@@ -236,6 +270,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: ItemsToSubmits/Delete/5
+        /// <summary>
+        /// item to submit delete confirmation
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -259,6 +298,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: ItemsToSubmits/Delete/5
+        /// <summary>
+        /// deletes an item for submit from the db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -277,6 +321,12 @@ namespace ButiqueShops.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// approve the item to submit by the admin
+        /// adds the item to the items list for show
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> Approve(int id)
         {

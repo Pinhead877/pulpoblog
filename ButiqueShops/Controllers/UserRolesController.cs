@@ -12,16 +12,26 @@ using System.Web.Mvc;
 
 namespace ButiqueShops.Controllers
 {
+    /// <summary>
+    /// CRUD for user roles 
+    /// </summary>
+    [AuthorizeRoles(Roles = "Administrator")]
     public class UserRolesController : Controller
     {
-
         private ButiqueShopsEntities db;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public UserRolesController()
         {
             db = new ButiqueShopsEntities();
             AutoMapperConfig.Config();
         }
 
+        /// <summary>
+        /// user roles list page
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> Index()
         {
             var usersRoles = await db.AspNetUsers.Include(r => r.AspNetRoles).Where(u => u.AspNetRoles.Any()).ToListAsync();
@@ -29,11 +39,20 @@ namespace ButiqueShops.Controllers
             return View(usersRolesViewModel);
         }
 
+        /// <summary>
+        /// user role details page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(string id)
         {
             return View();
         }
 
+        /// <summary>
+        /// create page
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> Create()
         {
             var users = db.AspNetUsers.ToListAsync();
@@ -52,6 +71,11 @@ namespace ButiqueShops.Controllers
             return View();
         }
 
+        /// <summary>
+        /// creates new user role in the db
+        /// </summary>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> Create(UserRolesViewModel userRole)
         {
@@ -78,6 +102,11 @@ namespace ButiqueShops.Controllers
             }
         }
 
+        /// <summary>
+        /// edit user role page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Edit(string id)
         {
             var user = await db.AspNetUsers.Include(u => u.AspNetRoles).FirstOrDefaultAsync(u => u.Id == id);
@@ -86,6 +115,11 @@ namespace ButiqueShops.Controllers
             return View();
         }
 
+        /// <summary>
+        /// updates user role in the db
+        /// </summary>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> Edit(UserRolesViewModel userRole)
         {
@@ -111,7 +145,11 @@ namespace ButiqueShops.Controllers
                 return View("Error");
             }
         }
-
+        /// <summary>
+        /// delete conforamtion page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Delete(string id)
         {
             var user = await db.AspNetUsers.Include(u => u.AspNetRoles).FirstOrDefaultAsync(u => u.Id == id);
@@ -120,9 +158,13 @@ namespace ButiqueShops.Controllers
             return View();
         }
 
+        /// <summary>
+        /// delete a user role from the db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [AuthorizeRoles(Roles = "Administrator")]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
             try

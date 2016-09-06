@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace ButiqueShops.Extensions
 {
+    /// <summary>
+    /// Custom class to authorize users by role
+    /// </summary>
     public class AuthorizeRolesAttribute : AuthorizeAttribute
     {
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

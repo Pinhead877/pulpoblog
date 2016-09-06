@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ButiqueShops.Controllers
 {
+    [Authorize]
     public class ServicesController : Controller
     {
         private ButiqueShopsEntities db;
@@ -18,6 +19,11 @@ namespace ButiqueShops.Controllers
             db = new ButiqueShopsEntities();
         }
 
+        /// <summary>
+        /// method for the shop galley page to like a shop
+        /// </summary>
+        /// <param name="shopid"></param>
+        /// <returns></returns>
         public async Task<JsonResult> likeStore(int shopid)
         {
             var user = await db.AspNetUsers.Include(u=>u.UserLikeShop).FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);
@@ -45,6 +51,11 @@ namespace ButiqueShops.Controllers
             return Json(respond, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// method for the item galley page to like a item
+        /// </summary>
+        /// <param name="itemid"></param>
+        /// <returns></returns>
         public async Task<JsonResult> likeItem(int itemid)
         {
             var user = await db.AspNetUsers.Include(u => u.UserLikedItem).FirstOrDefaultAsync(u => u.UserName == HttpContext.User.Identity.Name);

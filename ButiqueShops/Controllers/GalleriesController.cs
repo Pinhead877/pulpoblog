@@ -13,22 +13,35 @@ using System.Web.Mvc;
 
 namespace ButiqueShops.Controllers
 {
+    /// <summary>
+    /// Controller for all the client side pages
+    /// </summary>
     public class GalleriesController : Controller
     {
         private ButiqueShopsEntities db;
-
+        /// <summary>
+        /// Contructor
+        /// </summary>
         public GalleriesController()
         {
             db = new ButiqueShopsEntities();
             AutoMapperConfig.Config();
         }
-
+        /// <summary>
+        /// opens the order page 
+        /// </summary>
+        /// <param name="itemid"></param>
+        /// <returns></returns>
         [Authorize]
-        public async Task<ActionResult> OrderPage(int itemid)
+        public ActionResult OrderPage(int itemid)
         {
             return View();
         }
-
+        /// <summary>
+        /// Show details about the shop to the client
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Shop(int id)
         {
             Shops shop = null;
@@ -51,6 +64,11 @@ namespace ButiqueShops.Controllers
             return View(shop);
         }
 
+        /// <summary>
+        /// Show details about the item to the client
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Item(int id)
         {
             Items item = await db.Items
@@ -78,6 +96,11 @@ namespace ButiqueShops.Controllers
             return View(item);
         }
 
+        /// <summary>
+        /// Gallery view of the shops
+        /// </summary>
+        /// <param name="spec">filter the list</param>
+        /// <returns></returns>
         public async Task<ActionResult> ShopsList(ShopSpecification spec)
         {
             IQueryable<Shops> query = db.Shops;
@@ -96,6 +119,11 @@ namespace ButiqueShops.Controllers
             return View(await query.ToListAsync());
         }
 
+        /// <summary>
+        /// Gallery view of the items
+        /// </summary>
+        /// <param name="spec">filter the list</param>
+        /// <returns></returns>
         public async Task<ActionResult> ItemsList(ItemSpecification spec)
         {
             IQueryable<Items> query = db.Items;
@@ -143,6 +171,11 @@ namespace ButiqueShops.Controllers
             return View(await query.ToListAsync());
         }
 
+        /// <summary>
+        /// Show to the authorized users who liked a shop
+        /// </summary>
+        /// <param name="id">the shop</param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
         public async Task<ActionResult> ShopLikedBy(int id)
         {
@@ -150,12 +183,22 @@ namespace ButiqueShops.Controllers
             return View(Mapper.Map<List<UserViewModel>>(users));
         }
 
+        /// <summary>
+        /// Show to the authorized users who visited a shop
+        /// </summary>
+        /// <param name="id">the shop</param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
         public async Task<ActionResult> ShopVisitedBy(int id)
         {
             return View(Mapper.Map<List<UserViewModel>>(await db.AspNetUsers.Include(u => u.UserVisitedShop).Where(t => t.UserVisitedShop.Select(r => r.ShopId).Contains(id)).ToListAsync()));
         }
 
+        /// <summary>
+        /// Show to the authorized users who liked an item
+        /// </summary>
+        /// <param name="id">the item</param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
         public async Task<ActionResult> ItemLikedBy(int id)
         {
@@ -163,6 +206,11 @@ namespace ButiqueShops.Controllers
             return View(Mapper.Map<List<UserViewModel>>(users));
         }
 
+        /// <summary>
+        /// Show to the authorized users who visited an item
+        /// </summary>
+        /// <param name="id">the item</param>
+        /// <returns></returns>
         [AuthorizeRoles(Roles = "Administrator, Shop Owner")]
         public async Task<ActionResult> ItemVisitedBy(int id)
         {

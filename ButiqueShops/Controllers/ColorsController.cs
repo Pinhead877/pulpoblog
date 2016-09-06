@@ -8,12 +8,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ButiqueShops.Models;
+using ButiqueShops.Extensions;
 
 namespace ButiqueShops.Controllers
 {
     /// <summary>
     /// Controls the Colors in the system
     /// </summary>
+    [AuthorizeRoles(Roles = "Administrator")]
     public class ColorsController : Controller
     {
         private ButiqueShopsEntities db = new ButiqueShopsEntities();

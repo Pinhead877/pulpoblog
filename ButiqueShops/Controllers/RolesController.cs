@@ -14,9 +14,16 @@ using ButiqueShops.Extensions;
 
 namespace ButiqueShops.Controllers
 {
+    /// <summary>
+    /// Roles CRUD
+    /// </summary>
+    [AuthorizeRoles(Roles = "Administrator")]
     public class RolesController : Controller
     {
         private ButiqueShopsEntities db;
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public RolesController()
         {
             db = new ButiqueShopsEntities();
@@ -25,13 +32,21 @@ namespace ButiqueShops.Controllers
 
 
         // GET: Roles
-        [AuthorizeRoles(Roles = "Administrator")]
+        /// <summary>
+        /// roles list
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View(db.AspNetRoles.ToList());
         }
 
         // GET: Roles/Details/5
+        /// <summary>
+        /// role detials page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -47,6 +62,10 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Roles/Create
+        /// <summary>
+        /// create page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             return View();
@@ -55,6 +74,11 @@ namespace ButiqueShops.Controllers
         // POST: Roles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// creates new role in the db
+        /// </summary>
+        /// <param name="aspNetRoles"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name")] AspNetRoles aspNetRoles)
@@ -71,6 +95,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Roles/Edit/5
+        /// <summary>
+        /// edit page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -88,6 +117,11 @@ namespace ButiqueShops.Controllers
         // POST: Roles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// upadtes role in the db
+        /// </summary>
+        /// <param name="aspNetRoles"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] AspNetRoles aspNetRoles)
@@ -102,6 +136,11 @@ namespace ButiqueShops.Controllers
         }
 
         // GET: Roles/Delete/5
+        /// <summary>
+        /// role delete confirmation page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -117,6 +156,11 @@ namespace ButiqueShops.Controllers
         }
 
         // POST: Roles/Delete/5
+        /// <summary>
+        /// deletes a role from the db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
